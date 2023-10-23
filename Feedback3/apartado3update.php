@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prestamo_id'])) {
     try {
         $conexion = new mysqli('localhost', 'super', '123456', 'biblioteca');
 
-        // Actualizar la fecha de devolución a la fecha actual aa
+        // Actualizar la fecha de devolución a la fecha actual
         $query = "UPDATE prestamos SET pre_devolucion = NOW() WHERE pre_id = ?";
         $stmt = $conexion->prepare($query);
         $stmt->bind_param('i', $prestamoID);
