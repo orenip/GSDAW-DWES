@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Apartado 2</title>
+    <title>Página Principal</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -11,8 +11,9 @@
 </head>
 
 <body>
-    <h1>Feedback 3 - Apartado 2</h1>
-    <p>Debe dar la oportunidad de filtrar los resultados por socio y libro (¡ojo, no por ejemplar!).</p>
+    <h1>Página Principal</h1>
+    <p>En lugar de la fecha de devolución, cuando el préstamo no haya sido devuelto, aparecerá un botón que automáticamente realizará la devolución
+        del préstamo, tomando como fecha de devolución la fecha actual.</p>
 
     <?php
     $filtroSocio = isset($_POST['filtroSocio']) ? $_POST['filtroSocio'] : '';
@@ -51,7 +52,7 @@
                 <input type="text" class="form-control" id="filtroSocio" name="filtroSocio" value="<?php echo $filtroSocio; ?>">
             </div>
             <div class="form-group">
-                <label for="filtroLibro">Filtrar por Libro:</label>
+                <label for "filtroLibro">Filtrar por Libro:</label>
                 <input type="text" class="form-control" id="filtroLibro" name="filtroLibro" value="<?php echo $filtroLibro; ?>">
             </div>
             <button type="submit" class="btn btn-primary">Filtrar</button>
@@ -65,15 +66,37 @@
                     <th scope="col">Título</th>
                     <th scope="col">Fecha Devolución</th>
                     <th scope="col">Fecha Préstamo</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
 
                 <?php
-               $prestamos = $result->fetch_array();
-                while ($prestamos != null) {
-                    print "<tr><th scope='row'>$prestamos[0]</th><td>$prestamos[1]</td><td>$prestamos[2]</td><td>$prestamos[3]</td><td>$prestamos[4]</td></tr>\n";
-                    $prestamos = $result->fetch_array();
+                while ($prestamo = $result->fetch_array()) {
+                    echo "<tr>";
+                    echo "<th scope='row'>$prestamo[0]</th>";
+                    echo "<td>$prestamo[1]</td>";
+                    echo "<td>$prestamo[2]</td>";
+                    echo "<td>";
+                    if (empty($prestamo[3])) {
+                        echo "<form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>";
+                        echo "<input type='hidden' name='prestamo_id' value='$prestamo[1]'>";
+                        echo "<input type='submit' value='Devolver' class='btn btn-primary'>";
+                        echo "</form>";
+                    } else {
+                        echo $prestamo[3];
+                    }
+                    echo "</td>";
+                    echo "<td>$prestamo[4]</td>";
+                    echo "<td>";
+                    if (empty($prestamo[3])) {
+                        echo "<form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>";
+                        echo "<input type='hidden' name='prestamo_id' value='$prestamo[1]'>";
+                        echo "<input type='submit' value='Actualizar Fecha' class='btn btn-success'>";
+                        echo "</form>";
+                    }
+                    echo "</td>";
+                    echo "</tr>";
                 }
                 ?>
             </tbody>
