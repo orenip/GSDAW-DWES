@@ -15,10 +15,12 @@
     <p>En la parte inferior de la página debe aparecer un botón para crear un nuevo préstamo. Este botón nos llevará a una nueva página.</p>
 
     <?php
+    // Variables para almacenar los valores de los filtros
     $filtroSocio = isset($_POST['filtroSocio']) ? $_POST['filtroSocio'] : '';
     $filtroLibro = isset($_POST['filtroLibro']) ? $_POST['filtroLibro'] : '';
 
     try {
+        // Establecer la conexión a la base de datos
         $conexion = new mysqli('localhost', 'super', '123456', 'biblioteca');
         echo "<p>Conexión establecida</p>";
        
@@ -117,12 +119,14 @@
                 ?>
             </tbody>
         </table>
-        <!--Añadido botón para enviar nueva pagina para crear prestamos-->
+        <!--Añadido botón para enviar nueva pagina para crear préstamos-->
         <a href="apartado6-7-8.php" class="btn btn-success">Crear Nuevo Préstamo</a>
     <?php
     } catch (Exception $e) {
+        // Manejo de errores en caso de problemas de conexión
         echo "<p>Error al conectar: ", $e->getMessage(), "</p>";
     } finally {
+        // Cerrar la conexión y el resultado
         $result->close();
         $conexion->close();
     }

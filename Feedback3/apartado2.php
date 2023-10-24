@@ -15,15 +15,17 @@
     <p>Debe dar la oportunidad de filtrar los resultados por socio y libro (¡ojo, no por ejemplar!).</p>
 
     <?php
+    // Variables para almacenar los valores de los filtros
     $filtroSocio = isset($_POST['filtroSocio']) ? $_POST['filtroSocio'] : '';
     $filtroLibro = isset($_POST['filtroLibro']) ? $_POST['filtroLibro'] : '';
 
     try {
+        // Establecer la conexión a la base de datos
         $conexion = new mysqli('localhost', 'super', '123456', 'biblioteca');
         echo "<p>Conexión establecida</p>";
 
         
-        // Modificación de la consulta para añadir los filtros
+        // Modificación de la consulta SQL para incluir los filtros de socio y libro
         $query = "SELECT `socios`.`soc_nombre`, `ejemplares`.`eje_signatura`, `libros`.`lib_titulo`, `prestamos`.`pre_devolucion`, `prestamos`.`pre_fecha`
             FROM `libros`
             INNER JOIN `ejemplares` ON `ejemplares`.`eje_libro` = `libros`.`lib_isbn`
@@ -74,8 +76,10 @@
         </table>
     <?php
     } catch (Exception $e) {
+        // Manejo de errores en caso de problemas de conexión
         echo "<p>Error al conectar: ", $e->getMessage(), "</p>";
     } finally {
+        // Cerrar la conexión y el resultado
         $result->close();
         $conexion->close();
     }

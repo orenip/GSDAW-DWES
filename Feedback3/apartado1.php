@@ -18,10 +18,11 @@
 
     <?php
     try {
+        // Establecer la conexión a la base de datos
         $conexion = new mysqli('localhost', 'super', '123456', 'biblioteca');
         echo "<p>Conexión establecida</p>";
 
-        // Recuperamos los equipos
+        // Recuperamos los préstamos de la base de datos
         $result = $conexion->query('SELECT `socios`.`soc_nombre`, `ejemplares`.`eje_signatura`, `libros`.`lib_titulo` , `prestamos`.`pre_devolucion`, `prestamos`.`pre_fecha`
         FROM `libros` 
             INNER JOIN `ejemplares` ON `ejemplares`.`eje_libro` = `libros`.`lib_isbn` 
@@ -31,6 +32,7 @@
     ?>
 
         <table class="table">
+            <!-- Cabecera de la tabla -->
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Nombre socio</th>
@@ -44,6 +46,7 @@
 
 
                 <?php
+                // Obtener los datos de préstamos y mostrarlos en la tabla
                 $prestamos = $result->fetch_array();
                 while ($prestamos != null) {
                     print "<tr><th scope='row'>$prestamos[0]</th><td>$prestamos[1]</td><td>$prestamos[2]</td><td>$prestamos[3]</td><td>$prestamos[4]</td></tr>\n";
@@ -54,8 +57,10 @@
         </table>
     <?php
     } catch (Exception $e) {
+        // Manejo de errores en caso de problemas de conexión
         echo "<p>Error al conectar: ", $e->getMessage(), "</p>";
     } finally {
+        // Cerrar la conexión y el resultado
         $result->close();
         $conexion->close();
     }

@@ -15,10 +15,12 @@
     <p>Al final de cada fila debe aparecer un botón que elimine el préstamo al que se corresponda esa fila.</p>
 
     <?php
+    // Variables para almacenar los valores de los filtros
     $filtroSocio = isset($_POST['filtroSocio']) ? $_POST['filtroSocio'] : '';
     $filtroLibro = isset($_POST['filtroLibro']) ? $_POST['filtroLibro'] : '';
 
     try {
+        // Establecer la conexión a la base de datos
         $conexion = new mysqli('localhost', 'super', '123456', 'biblioteca');
         echo "<p>Conexión establecida</p>";
        
@@ -119,8 +121,10 @@
         </table>
     <?php
     } catch (Exception $e) {
+        // Manejo de errores en caso de problemas de conexión
         echo "<p>Error al conectar: ", $e->getMessage(), "</p>";
     } finally {
+        // Cerrar la conexión y el resultado
         $result->close();
         $conexion->close();
     }
