@@ -2,14 +2,21 @@
 <html>
 
 <head>
-    <title>Crear Préstamo</title>
+    <title>Apartado 6-7-8</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <h1>Crear Préstamo</h1>
+    <h1>Feedback 3 - Apartado 6-7-8</h1>
+    <p>En la página de creación préstamos tendremos dos listas desplegables, una con los socios y otra con los ejemplares que están sin prestar.
+         En esta segunda lista deben poderse ver los títulos de los libros. 
+         Es opcional utilizar otros métodos de selección de socios y ejemplares, como botones de búsqueda, arrays de checkboxes...</p>
+    <p>El Id del préstamo lo tomará de forma automática y la fecha la obtendremos de la fecha actual</p>
+    <p>Debe existir la posibildad de cancelar la creación del préstamo. Tanto al confirmar o al cancelar la creación del préstamo volveremos a la página principal.</p>
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -44,9 +51,8 @@
             // Cerrar la consulta y la conexión
             $consulta->close();
             $conexion->close();
-            
             // Redirigir de vuelta a la página principal
-            echo '<script>window.location.replace("pagina_principal.php");</script>';
+            echo '<script>window.location.replace("apartado5.php");</script>';
         } else {
             echo "Faltan datos del formulario.";
         }

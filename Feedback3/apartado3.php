@@ -13,13 +13,17 @@
 <body>
     <h1>Feedback 3 - Apartado 3</h1>
     <p>En lugar de la fecha de devolución, cuando el préstamo no haya sido devuelto aparecerá un botón que automáticamente realizará la devolución del préstamo,
-    tomando como fecha de devolución la fecha actual.</p>
+         tomando como fecha de devolución la fecha actual.</p>
 
     <?php
+    $filtroSocio = isset($_POST['filtroSocio']) ? $_POST['filtroSocio'] : '';
+    $filtroLibro = isset($_POST['filtroLibro']) ? $_POST['filtroLibro'] : '';
+
     try {
         $conexion = new mysqli('localhost', 'super', '123456', 'biblioteca');
         echo "<p>Conexión establecida</p>";
-
+       
+        //Petición para actualizar la fecha de devolución a la actual
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['prestamo_id'])) {
             // Actualizar la fecha de devolución a la fecha actual
             $prestamoID = $_POST['prestamo_id'];
@@ -32,15 +36,33 @@
                 echo "Error al devolver el préstamo.";
             }
         }
-
-        // Recuperamos los préstamos
-        $result = $conexion->query('SELECT `prestamos`.`pre_id`, `socios`.`soc_nombre`, `ejemplares`.`eje_signatura`, `libros`.`lib_titulo`, `prestamos`.`pre_devolucion`, `prestamos`.`pre_fecha` FROM `libros` 
-            INNER JOIN `ejemplares` ON `ejemplares`.`eje_libro` = `libros`.`lib_isbn` 
-            INNER JOIN `prestamos` ON `prestamos`.`pre_ejemplar` = `ejemplares`.`eje_signatura` 
+        // Modificación de la consulta para añadir los filtros
+        $query = "SELECT `prestamos`.`pre_id`,`socios`.`soc_nombre`, `ejemplares`.`eje_signatura`, `libros`.`lib_titulo`, `prestamos`.`pre_devolucion`, `prestamos`.`pre_fecha`
+            FROM `libros`
+            INNER JOIN `ejemplares` ON `ejemplares`.`eje_libro` = `libros`.`lib_isbn`
+            INNER JOIN `prestamos` ON `prestamos`.`pre_ejemplar` = `ejemplares`.`eje_signatura`
             INNER JOIN `socios` ON `prestamos`.`pre_socio` = `socios`.`soc_id`
-            ORDER BY `prestamos`.`pre_fecha` DESC ');
+            WHERE (`socios`.`soc_nombre` LIKE '%$filtroSocio%' OR '$filtroSocio' = '') 
+                AND (`libros`.`lib_titulo` LIKE '%$filtroLibro%' OR '$filtroLibro' = '')
+            ORDER BY `prestamos`.`pre_fecha` DESC";
+        
+        $result = $conexion->query($query);
+        
 
     ?>
+
+        <!--Formulario para enviar los filtros-->
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <div class="form-group">
+                <label for="filtroSocio">Filtrar por Socio:</label>
+                <input type="text" class="form-control" id="filtroSocio" name="filtroSocio" value="<?php echo $filtroSocio; ?>">
+            </div>
+            <div class="form-group">
+                <label for="filtroLibro">Filtrar por Libro:</label>
+                <input type="text" class="form-control" id="filtroLibro" name="filtroLibro" value="<?php echo $filtroLibro; ?>">
+            </div>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </form>
 
         <table class="table">
             <thead class="thead-dark">
@@ -49,12 +71,13 @@
                     <th scope="col">Signatura</th>
                     <th scope="col">Título</th>
                     <th scope="col">Fecha Devolución</th>
-                    <th scope="col">Fecha Prestamo</th>
+                    <th scope="col">Fecha Préstamo</th>
                 </tr>
             </thead>
             <tbody>
 
                 <?php
+                //Modificado el metodo para mostrar para añadir los botones
                 while ($prestamo = $result->fetch_array()) {
                     echo "<tr>";
                     echo "<th scope='row'>$prestamo[1]</th>";
@@ -62,7 +85,7 @@
                     echo "<td>$prestamo[3]</td>";
                     echo "<td>";
                     if (empty($prestamo[4])) {
-                        echo "<form method='POST' action='apartado3update.php'>";
+                        echo "<form method='POST' action='" . $_SERVER['PHP_SELF'] . "'>";
                         echo "<input type='hidden' name='prestamo_id' value='$prestamo[0]'>";
                         echo "<input type='submit' value='Devolver' class='btn btn-primary'>";
                         echo "</form>";
@@ -84,6 +107,7 @@
         $conexion->close();
     }
     ?>
+
 </body>
 
 </html>
