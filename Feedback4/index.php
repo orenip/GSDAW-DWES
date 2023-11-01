@@ -55,6 +55,7 @@ if (isset($_POST['Enviar'])) {
         Director: <input type="text" name="director"><br>
         <input type="submit" name="Enviar" value="Enviar">
     </form>
+    <!-- Enlaces a las otras dos páginas -->
     <a href="peliculas.php">Ver películas almacenadas</a>
     <a href="busqueda.php">Buscar películas</a>
 

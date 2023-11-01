@@ -50,6 +50,7 @@ if (isset($_POST['Filtrar'])) {
 
     <h3>Películas Filtradas</h3>
     <?php
+    // Comprobar si existen datos de películas en la sesión
     if (isset($_SESSION['peliculas_filtradas'])) {
     ?>
         <table class="table">
@@ -71,6 +72,7 @@ if (isset($_POST['Filtrar'])) {
     <?php
     }
     ?>
+    <!-- Enlaces a las otras dos páginas -->
     <a href="index.php">Volver a la página principal</a>
     <a href="peliculas.php">Ver todas las películas</a>
 </body>
