@@ -17,12 +17,22 @@ if (isset($_POST['Filtrar'])) {
 <html>
 
 <head>
-    <title>Búsqueda de Películas</title>
+    <title>Apartado 3</title>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
+    <h1>Feedback 4 - Apartado 3</h1>
+    <p>Página de búsqueda. Nos aparece un formulario con la lista desplegable de los géneros y un botón de filtrado, 
+        al seleccionar un género y pulsar el botón nos debe mostrar únicamente las películas del género seleccionado. 
+        Debe tener un bóton para volver a la página principal.</p>
+
     <h1>Búsqueda de Películas por Género</h1>
+
     <form name="formBusqueda" action="busqueda.php" method="post">
         Filtrar por Género:
         <select name="genero_filtro">
@@ -34,31 +44,33 @@ if (isset($_POST['Filtrar'])) {
         </select>
         <input type="submit" name="Filtrar" value="Filtrar">
     </form>
-    <h2>Películas Filtradas</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Año</th>
-                <th>Género</th>
-                <th>Director</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            if (isset($_SESSION['peliculas_filtradas'])) {
-                foreach ($_SESSION['peliculas_filtradas'] as $pelicula) {
-                    echo "<tr>";
-                    echo "<td>{$pelicula['titulo']}</td>";
-                    echo "<td>{$pelicula['anio']}</td>";
-                    echo "<td>{$pelicula['genero']}</td>";
-                    echo "<td>{$pelicula['director']}</td>";
-                    echo "</tr>";
-                }
-            }
-            ?>
-        </tbody>
-    </table>
+
+
+
+
+    <h3>Películas Filtradas</h3>
+    <?php
+    if (isset($_SESSION['peliculas_filtradas'])) {
+    ?>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Título</th>
+                    <th scope="col">Año</th>
+                    <th scope="col">Género</th>
+                    <th scope="col">Director</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($_SESSION['peliculas_filtradas'] as $pelicula) {
+                    print "<tr><td>" . $pelicula['titulo'] . "</td>\n<td>" . $pelicula['anio'] . "</td>\n<td>" . $pelicula['genero'] . "</td><td>" . $pelicula['director'] . "</td>\n</tr>\n";
+                } ?>
+
+            </tbody>
+        </table>
+    <?php
+    }
+    ?>
     <a href="index.php">Volver a la página principal</a>
     <a href="peliculas.php">Ver todas las películas</a>
 </body>

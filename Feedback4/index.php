@@ -2,6 +2,7 @@
 // Recuperamos la sesión anterior
 session_start();
 
+
 if (isset($_POST['Enviar'])) {
     // Recuperamos los datos de la película y creamos un array
     $datosPelicula = array(
@@ -32,19 +33,15 @@ if (isset($_POST['Enviar'])) {
 </head>
 
 <body>
-    <p>Vamos a crear un programa que almacene datos de películas en $_SESSION.
-        La aplicación constará de tres páginas:
-        Página principal donde se muestre un formulario para que se inserten los datos de la película que serán el título,
-         el año, el género y el director. El género se elegirá mediante una lista desplegable entre las opciones "Comedia", 
-         "Drama", "Musical", "Acción" e "Infantil". Esta página además debe tener un enlace a la otras dos páginas.
-        Página donde se muestren las películas almacenadas enmarcadas en una tabla HTML. 
-        Debe tener un bóton para volver a la página principal.
-        Página de búsqueda. Nos aparece un formulario con la lista desplegable de los géneros y un botón de filtrado,
-         al seleccionar un género y pulsar el botón nos debe mostrar únicamente las películas del género seleccionado.
-          Debe tener un bóton para volver a la página principal.</p> 
+    <h1>Feedback 4 - Apartado 1</h1>
+    <p>Vamos a crear un programa que almacene datos de películas en $_SESSION. <br>
+        Página principal donde se muestre un formulario para que se inserten los datos de la película que serán el
+        título, el año, el género y el director. El género se elegirá mediante una lista desplegable entre las opciones
+        "Comedia", "Drama", "Musical", "Acción" e "Infantil". Esta página además debe tener un enlace a la otras dos páginas.</p>
+       
     <!-- Se muestra el formulario y los enlace de enviar y buscar -->
     <h1>Introduce los datos de la película</h1>
-    <form name="formPelicula" action="peliculas.php" method="post">
+    <form name="formPelicula" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
         Título: <input type="text" name="titulo"><br>
         Año: <input type="text" name="anio"><br>
         Género:
