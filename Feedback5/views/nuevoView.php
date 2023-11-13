@@ -11,7 +11,7 @@
 <body>
 	<!-- Formulario para insertar un nuevo item --> 
 	<form action="index.php" method="post">
-		<input type="hidden" name="controlador" value="Empleado">
+		<input type="hidden" name="controlador" value="Item">
 		<input type="hidden" name="accion" value="nuevo">
 
 		<?php echo isset($errores["codigo"]) ? "*" : "" ?>
@@ -22,11 +22,6 @@
 		<?php echo isset($errores["nombre"]) ? "*" : "" ?>
 		<label for="nombre">Nombre</label>
 		<input type="text" name="nombre">
-		</br>
-
-		<?php echo isset($errores["salario"]) ? "*" : "" ?>
-		<label for="salario">Salario</label>
-		<input type="text" name="salario">
 		</br>
 
 		<input type="submit" name="submit" value="Aceptar">
