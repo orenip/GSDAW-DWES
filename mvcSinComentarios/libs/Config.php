@@ -1,24 +1,9 @@
 <?php
-/*
-Clase para gestionar variables de configuración de la aplicación web
-mediante un atributo que es "vars" y que es un array de variables.
-
-Uso:
- 
- $config = Config::singleton();
- $config->set('nombre', 'Federico');
- echo $config->get('nombre');
- 
- $config2 = Config::singleton();
- echo $config2->get('nombre');
- 
-*/
 class Config
 {
     private $vars;
     private static $instance;
  
-    // Constructor de la clase, instancia vars como un array
     private function __construct()
     {
         $this->vars = array();
@@ -42,8 +27,6 @@ class Config
         }
     }
  
-    // Método estático para asegurarnos que solo tenemos una instancia de Config
-    // Sigue el patrón de diseño Singleton
     public static function singleton()
     {
         if (!isset(self::$instance)) {
@@ -54,4 +37,15 @@ class Config
         return self::$instance;
     }
 }
+/*
+ Uso:
+ 
+ $config = Config::singleton();
+ $config->set('nombre', 'Federico');
+ echo $config->get('nombre');
+ 
+ $config2 = Config::singleton();
+ echo $config2->get('nombre');
+ 
+*/
 ?>

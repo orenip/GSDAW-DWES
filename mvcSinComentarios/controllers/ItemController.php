@@ -1,18 +1,21 @@
 <?php
 // Controlador para el modelo ItemModel (puede haber más controladores en la aplicación)
 // Un controlador no tiene porque estar asociado a un objeto del modelo
-class ItemController {
+class ItemController
+{
     // Atributo con el motor de plantillas del microframework
     protected $view;
 
     // Constructor. Únicamente instancia un objeto View y lo asigna al atributo
-    function __construct() {
+    function __construct()
+    {
         //Creamos una instancia de nuestro mini motor de plantillas
         $this->view = new View();
     }
 
     // Método del controlador para listar los items almacenados
-    public function listar() {
+    public function listar()
+    {
         //Incluye el modelo que corresponde
         require 'models/ItemModel.php';
 
@@ -31,8 +34,28 @@ class ItemController {
         $this->view->show("listarView.php", $data);
     }
 
+
+    public function index()
+    {
+        //Incluye el modelo que corresponde
+        require_once 'models/ItemModel.php';
+
+        //Creamos una instancia de nuestro "modelo"
+        $items = new ItemModel();
+
+        //Le pedimos al modelo todos los items
+        $listado = $items->getAll();
+
+        //Pasamos a la vista toda la información que se desea representar
+        $data['items'] = $listado;
+
+        //Finalmente presentamos nuestra plantilla
+        $this->view->show("listarView.php", $data);
+    }
+
     // Método del controlador para crear un nuevo item
-    public function nuevo() {
+    public function nuevo()
+    {
         require 'models/ItemModel.php';
         $item = new ItemModel();
 
@@ -40,22 +63,14 @@ class ItemController {
 
         // Si recibe por GET o POST el objeto y lo guarda en la BG
         if (isset($_REQUEST['submit'])) {
-            // Comprobamos si se ha recibido el código
-            if (!isset($_REQUEST['codigo']) || empty($_REQUEST['codigo']))
-                $errores['codigo'] = "* Codigo: debes indicar un código.";
-
-            // Comprobamos si se ha recibido el nombre
-            if (!isset($_REQUEST['nombre']) || empty($_REQUEST['nombre']))
-                $errores['nombre'] = "* Nombre: debes indicar un nombre.";
-
-            // Si no hay errores actualizamos en la BD
+            if (!isset($_REQUEST['item']) || empty($_REQUEST['item']))
+                $errores['item'] = "* Item: Error";
             if (empty($errores)) {
-                $item->setCodigo($_REQUEST['codigo']);
-                $item->setNombre($_REQUEST['nombre']);
+                $item->setItem($_REQUEST['item']);
                 $item->save();
 
                 // Finalmente llama al método listar para que devuelva vista con listado
-                header("Location: index.php?controlador=Item&accion=listar");
+                header("Location: index.php?controlador=item&accion=listar");
             }
         }
 
@@ -67,7 +82,8 @@ class ItemController {
     }
 
     // Método que procesa la petición para editar un item
-    public function editar() {
+    public function editar()
+    {
 
         require 'models/ItemModel.php';
         $items = new ItemModel();
@@ -84,18 +100,16 @@ class ItemController {
         // Si se ha pulsado el botón de actualizar
         if (isset($_REQUEST['submit'])) {
 
-            // Comprobamos si se ha recibido el nombre
-            if (!isset($_REQUEST['nombre']) || empty($_REQUEST['nombre']))
-                $errores['nombre'] = "* Nombre: es obligatorio el nombre.";
+            if (!isset($_REQUEST['item']) || empty($_REQUEST['item']))
+                $errores['item'] = "* Item: Error";
 
-            // Si no hay errores actualizamos en la BD
             if (empty($errores)) {
                 // Cambia el valor del item y lo guarda en BD
-                $item->setNombre($_REQUEST['nombre']);
+                $item->setItem($_REQUEST['item']);
                 $item->save();
 
                 // Reenvía a la aplicación a la lista de items
-                header("Location: index.php?controlador=Item&accion=listar");
+                header("Location: index.php?controlador=item&accion=listar");
             }
         }
 
@@ -107,7 +121,8 @@ class ItemController {
     }
 
     // Método para borrar un item 
-    public function borrar() {
+    public function borrar()
+    {
         //Incluye el modelo que corresponde
         require_once 'models/ItemModel.php';
 

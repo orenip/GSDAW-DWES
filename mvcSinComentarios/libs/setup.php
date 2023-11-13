@@ -1,8 +1,4 @@
 <?php
-// Script para configurar mi aplicación web
-// Establece las variables que indican los directorios de las clases
-// Establece las variables para hacer la conexión a la base de datos
-
 // Obtiene la instancia del objeto que guarda los datos de configuración
 $config = Config::singleton();
 
@@ -13,7 +9,7 @@ $config->set('viewsFolder', 'views/');
 
 // Parámetros de conexión a la BD
 $config->set('dbhost', 'localhost');
-$config->set('dbname', 'dwesmvc');
-$config->set('dbuser', 'root');
-$config->set('dbpass', '');
+$config->set('dbname', 'dwespruebas');
+$config->set('dbuser', 'super');
+$config->set('dbpass', '123456');
 ?>

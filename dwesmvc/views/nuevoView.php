@@ -1,39 +1,41 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- Vista para añadir un nuevo item a la tabla -->
 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
+	<title>Microframework MVC - Modelo, Vista, Controlador</title>
 </head>
 
 <body>
-
-
-	<form action="index.php">
-
-		<input type="hidden" name="controlador" value="item">
+	<!-- Formulario para insertar un nuevo item --> 
+	<form action="index.php" method="post">
+		<input type="hidden" name="controlador" value="Item">
 		<input type="hidden" name="accion" value="nuevo">
 
+		<?php echo isset($errores["codigo"]) ? "*" : "" ?>
 		<label for="codigo">Codigo</label>
 		<input type="text" name="codigo">
 		</br>
 
-		<?php echo isset($errores["item"]) ? "*" : "" ?>
-		<label for="item">Item</label>
-		<input type="text" name="item">
+		<?php echo isset($errores["nombre"]) ? "*" : "" ?>
+		<label for="nombre">Nombre</label>
+		<input type="text" name="nombre">
 		</br>
 
 		<input type="submit" name="submit" value="Aceptar">
 	</form>
 	</br>
+
 	<?php
-if (isset($errores)):
-	foreach ($errores as $key => $error):
-		echo $error . "</br>";
-	endforeach;
-endif;
-?>
+	// Si hay errores se muestran
+	if (isset($errores)):
+		foreach ($errores as $key => $error):
+			echo $error . "</br>";
+		endforeach;
+	endif;
+	?>
 
 </body>
 

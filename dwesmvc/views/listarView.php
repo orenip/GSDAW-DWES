@@ -1,5 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- Vista para listar los registros de un determinado modelo -->
 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
@@ -10,28 +11,31 @@
 <body>
     <table>
         <tr>
-            <th>ID
-            </th>
-            <th>Item
-            </th>
+            <th>Codigo</th>
+            <th>Nombre</th>
         </tr>
         <?php
         foreach ($items as $item) {
-        ?>
-        <tr>
-            <td><?php echo $item->getCodigo() ?></td>
-            <td><?php echo $item->getItem() ?></td>
-            <td><a href="index.php?controlador=item&accion=editar&codigo=<?php echo $item->getCodigo() ?>">Editar</a>
-            </td>
-            <td><a href="index.php?controlador=item&accion=borrar&codigo=<?php echo $item->getCodigo() ?>">Borrar</a>
-            </td>
-
-        </tr>
-        <?php
+            ?>
+            <tr>
+                <td>
+                    <?php echo $item->getCodigo() ?>
+                </td>
+                <td>
+                    <?php echo $item->getNombre() ?>
+                </td>
+                <td>
+                    <a href="index.php?controlador=Item&accion=editar&codigo=<?php echo $item->getCodigo() ?>">Editar</a>
+                </td>
+                <td>
+                    <a href="index.php?controlador=Item&accion=borrar&codigo=<?php echo $item->getCodigo() ?>">Borrar</a>
+                </td>
+            </tr>
+            <?php
         }
         ?>
     </table>
-    <a href="index.php?controlador=item&accion=nuevo">Nuevo</a>
+    <a href="index.php?controlador=Item&accion=nuevo">Nuevo</a>
 </body>
 
 </html>

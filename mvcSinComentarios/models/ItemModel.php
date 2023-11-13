@@ -8,7 +8,7 @@ class ItemModel
 
     // Atributos del objeto item que coinciden con los campos de la tabla ITEMS
     private $codigo;
-    private $nombre;
+    private $item;
 
     // Constructor que utiliza el patrón Singleton para tener una única instancia de la conexión a BD
     public function __construct()
@@ -27,13 +27,13 @@ class ItemModel
         return $this->codigo = $codigo;
     }
 
-    public function getNombre()
+    public function getItem()
     {
-        return $this->nombre;
+        return $this->item;
     }
-    public function setNombre($nombre)
+    public function setItem($item)
     {
-        return $this->nombre = $nombre;
+        return $this->item = $item;
     }
 
     // Método para obtener todos los registros de la tabla ITEMS
@@ -41,7 +41,7 @@ class ItemModel
     public function getAll()
     {
         //realizamos la consulta de todos los items
-        $consulta = $this->db->prepare('SELECT * FROM ITEMS');
+        $consulta = $this->db->prepare('SELECT * FROM items');
         $consulta->execute();
         $resultado = $consulta->fetchAll(PDO::FETCH_CLASS, "ItemModel");
 
@@ -53,7 +53,7 @@ class ItemModel
     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
     public function getById($codigo)
     {
-        $gsent = $this->db->prepare('SELECT * FROM ITEMS WHERE codigo = ?');
+        $gsent = $this->db->prepare('SELECT * FROM items where codigo = ?');
         $gsent->bindParam(1, $codigo);
         $gsent->execute();
 
@@ -67,14 +67,13 @@ class ItemModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        if ($this->getById($this->getCodigo()) == null) {
-            $consulta = $this->db->prepare('INSERT INTO ITEMS(codigo,nombre) VALUES (?,?)');
-            $consulta->bindParam(1, $this->codigo);
-            $consulta->bindParam(2, $this->nombre);
+        if (!isset($this->codigo)) {
+            $consulta = $this->db->prepare('INSERT INTO items ( item ) values ( ? )');
+            $consulta->bindParam(1, $this->item);
             $consulta->execute();
         } else {
-            $consulta = $this->db->prepare('UPDATE ITEMS SET nombre=? WHERE codigo=?');
-            $consulta->bindParam(1, $this->nombre);
+            $consulta = $this->db->prepare('UPDATE items SET item = ? WHERE codigo =  ? ');
+            $consulta->bindParam(1, $this->item);
             $consulta->bindParam(2, $this->codigo);
             $consulta->execute();
         }
@@ -83,7 +82,7 @@ class ItemModel
     // Método que elimina el ItemModel de la BD
     public function delete()
     {
-        $consulta = $this->db->prepare('DELETE FROM ITEMS WHERE codigo=?');
+        $consulta = $this->db->prepare('DELETE FROM  items WHERE codigo =  ?');
         $consulta->bindParam(1, $this->codigo);
         $consulta->execute();
     }
