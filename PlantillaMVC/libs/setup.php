@@ -13,9 +13,8 @@ $config->set('viewsFolder', 'views/');
 
 // Parámetros de conexión a la BD
 $config->set('dbhost', 'localhost');
-$config->set('dbname', 'baloncesto');
+$config->set('dbname', 'dwesmvc');
 $config->set('dbuser', 'root');
 $config->set('dbpass', '');
 //$config->set('dbpass', 'root');
-
 ?>
