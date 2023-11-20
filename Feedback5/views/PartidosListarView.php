@@ -11,8 +11,8 @@
 <body>
     <table>
         <tr>
-            <th>Codigo</th>
-            <th>Fecha</th>
+         <th>COD_PARTIDO</th>
+            <th>FECHA</th>
             <th>COD_EQUIPO1</th>
             <th>COD_EQUIPO2</th>
             <th>PUNTOS_EQUIPO1</th>

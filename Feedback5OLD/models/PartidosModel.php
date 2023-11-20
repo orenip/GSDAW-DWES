@@ -125,9 +125,6 @@ class PartidosModel
         //realizamos la consulta de todos los items
         $consulta = $this->db->prepare('SELECT * FROM PARTIDOS');
         $consulta->execute();
-
-        // OJO!! El fetchAll() funcionará correctamente siempre que el nombre
-        // de los atributos de la clase coincida con los campos de la tabla
         $resultado = $consulta->fetchAll(PDO::FETCH_CLASS, "PartidosModel");
 
         //devolvemos la colección para que la vista la presente.
@@ -135,26 +132,25 @@ class PartidosModel
     }
 
 
-     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
-	 public function getById($codigo)
-	 {
-		 $gsent = $this->db->prepare('SELECT * FROM PARTIDOS WHERE COD_PARTIDO = ?');
-		 $gsent->bindParam(1, $codigo);
-		 $gsent->execute();
- 
-		 $gsent->setFetchMode(PDO::FETCH_CLASS, "PartidosModel");
-		 $resultado = $gsent->fetch();
- 
-		 return $resultado;
-	 }
+    // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
+    public function getById($codigo)
+    {
+        $gsent = $this->db->prepare('SELECT * FROM PARTIDOS WHERE cod_partido = ?');
+        $gsent->bindParam(1, $codigo);
+        $gsent->execute();
+
+        $gsent->setFetchMode(PDO::FETCH_CLASS, "PartidosModel");
+        $resultado = $gsent->fetch();
+
+        return $resultado;
+    }
 
     // Método que almacena en BD un objeto ItemModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        //if ($this->getById($this->getCOD_PARTIDO()) == null) {
-		if(!isset($this->COD_PARTIDO)){
-            $consulta = $this->db->prepare('INSERT INTO PARTIDOS(COD_PARTIDO,FECHA,COD_EQUIPO1,COD_EQUIPO2,PUNTOS_EQUIPO1,PUNTOS_EQUIPO2) VALUES (?,?,?,?,?,?)');
+        if ($this->getById($this->getCOD_PARTIDO()) == null) {
+            $consulta = $this->db->prepare('INSERT INTO PARTIDOS(COD_PARTIDO,FECHA,COD_EQUIPO1,COD_EQUIPO2,PUNTOS_EQUIPO1,PUNTOS_EQUIPO2) VALUES (?,?)');
             $consulta->bindParam(1, $this->COD_PARTIDO);
             $consulta->bindParam(2, $this->FECHA);
 			$consulta->bindParam(3, $this->COD_EQUIPO1);
@@ -181,5 +177,7 @@ class PartidosModel
         $consulta->bindParam(1, $this->COD_PARTIDO);
         $consulta->execute();
     }
+
+	
 }
 ?>

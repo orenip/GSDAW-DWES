@@ -7,7 +7,7 @@ $config->set('viewsFolder', 'views/');
  
 $config->set('dbhost', 'localhost');
 $config->set('dbname', 'futbolmvc');
-$config->set('dbuser', 'futbol');
-$config->set('dbpass', 'futbol1234');
+$config->set('dbuser', 'root');
+$config->set('dbpass', '');
 ?>
 

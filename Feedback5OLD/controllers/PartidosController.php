@@ -30,7 +30,7 @@ class PartidosController {
         // Genera la vista de respuesta a partir de la plantilla y de los datos
         $this->view->show("PartidosListarView.php", $data);
     }
-
+   
     // Método del controlador para crear un nuevo item
     public function nuevo() {
         require 'models/PartidosModel.php';
@@ -101,7 +101,8 @@ class PartidosController {
         if (isset($_REQUEST['submit'])) {
 
             // Comprobamos si se ha recibido el nombre
-
+            if (!isset($_REQUEST['COD_PARTIDO']) || empty($_REQUEST['COD_PARTIDO']))
+            $errores['COD_PARTIDO'] = "* COD_PARTIDO: debes indicar una FECHA.";
 
             if (!isset($_REQUEST['FECHA']) || empty($_REQUEST['FECHA']))
                 $errores['FECHA'] = "* FECHA: debes indicar una FECHA.";
@@ -120,7 +121,6 @@ class PartidosController {
 
             // Si no hay errores actualizamos en la BD
             if (empty($errores)) {
-                // Cambia el valor del item y lo guarda en BD
                 $partidos->setCOD_PARTIDO($_REQUEST['COD_PARTIDO']);
                 $partidos->setFECHA($_REQUEST['FECHA']);
                 $partidos->setCOD_EQUIPO1($_REQUEST['COD_EQUIPO1']);
@@ -129,19 +129,19 @@ class PartidosController {
                 $partidos->setPUNTOS_EQUIPO2($_REQUEST['PUNTOS_EQUIPO2']);
                 $partidos->save();
 
-                // Reenvía a la aplicación a la lista de items
+                // Reenvía a la aplicación a la lista de partidos
                 header("Location: index.php?controlador=Partidos&accion=listar");
             }
         }
 
-        // Si no se ha pulsado el botón de actualizar se carga la vista para editar el item
+        // Si no se ha pulsado el botón de actualizar se carga la vista para editar el partido
         $this->view->show("PartidosEditarView.php", array('partido' => $partido, 'errores' => $errores));
 
 
 
     }
 
-    // Método para borrar un item 
+    // Método para borrar un partido 
     public function borrar() {
         //Incluye el modelo que corresponde
         require_once 'models/PartidosModel.php';
@@ -157,7 +157,7 @@ class PartidosController {
         } else {
             // Si existe lo elimina de la base de datos y vuelve al inicio de la aplicación
             $partido->delete();
-            header("Location: index.php?controlador=Partidos&accion=listar");
+            header("Location: index.php");
         }
     }
 

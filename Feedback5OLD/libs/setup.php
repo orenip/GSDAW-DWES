@@ -17,4 +17,5 @@ $config->set('dbname', 'baloncesto');
 $config->set('dbuser', 'root');
 $config->set('dbpass', '');
 //$config->set('dbpass', 'root');
+
 ?>
