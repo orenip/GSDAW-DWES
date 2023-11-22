@@ -21,27 +21,27 @@
 
 		<?php echo isset($errores["FECHA"]) ? "*" : "" ?>
 		<label for="FECHA">FECHA</label>
-		<input type="date" name="FECHA" value="<?php echo $partido->getFECHA(); ?>">
+		<input type="date" name="FECHA">
 		</br>
 
 		<?php echo isset($errores["COD_EQUIPO1"]) ? "*" : "" ?>
 		<label for="COD_EQUIPO1">COD_EQUIPO1</label>
-		<input type="number" name="COD_EQUIPO1" value="<?php echo $partido->getCOD_EQUIPO1(); ?>">
+		<input type="number" name="COD_EQUIPO1">
 		</br>
 
 		<?php echo isset($errores["COD_EQUIPO2"]) ? "*" : "" ?>
 		<label for="COD_EQUIPO2">COD_EQUIPO2</label>
-		<input type="number" name="COD_EQUIPO2" value="<?php echo $partido->getCOD_EQUIPO2(); ?>">
+		<input type="number" name="COD_EQUIPO2">
 		</br>
 
 		<?php echo isset($errores["PUNTOS_EQUIPO1"]) ? "*" : "" ?>
 		<label for="PUNTOS_EQUIPO1">PUNTOS_EQUIPO1</label>
-		<input type="number" name="PUNTOS_EQUIPO1" value="<?php echo $partido->getPUNTOS_EQUIPO1(); ?>">
+		<input type="number" name="PUNTOS_EQUIPO1">
 		</br>
 
 		<?php echo isset($errores["PUNTOS_EQUIPO2"]) ? "*" : "" ?>
 		<label for="PUNTOS_EQUIPO2">PUNTOS_EQUIPO2</label>
-		<input type="number" name="PUNTOS_EQUIPO2" value="<?php echo $partido->getPUNTOS_EQUIPO2(); ?>">
+		<input type="number" name="PUNTOS_EQUIPO2">
 		</br>
 
 		<input type="submit" name="submit" value="Aceptar">
