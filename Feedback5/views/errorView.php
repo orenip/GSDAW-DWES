@@ -1,14 +1,11 @@
-<!-- Vista para generar los errores. Si recibe una variable error la muestra -->
+<!-- Vista para listar los registros de un determinado modelo -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Microframework MVC - Modelo, Vista, Controlador</title>
-</head>
-
+<!-- Incluimos la cabecera -->
+<?php include_once("common/cabecera.php"); ?>
 <body>
+    <!-- Incluimos el menú --> 
+    <?php include_once("common/menu.php"); ?>
+
     <p>Se ha producido un error</p></br>
 
     <?php
@@ -17,6 +14,8 @@
     ?>
 
     <a href="index.php">Inicio</a>
+<!-- Incluimos el pie de página -->
+    <?php include_once("common/pie.php"); ?>
 </body>
 
 </html>

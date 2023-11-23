@@ -1,52 +1,83 @@
-<!-- Vista para editar un elemento de la tabla -->
+<!-- Vista para listar los registros de un determinado modelo -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Microframework MVC - Modelo, Vista, Controlador</title>
-</head>
-
+<!-- Incluimos la cabecera -->
+<?php include_once("common/cabecera.php"); ?>
 <body>
-	<form action="index.php" method="post">
-		<input type="hidden" name="controlador" value="Partidos">
-		<input type="hidden" name="accion" value="editar">
+    <!-- Incluimos el menú --> 
+    <?php include_once("common/menu.php"); ?>
+	<div class="container">
+        <form class="form-horizontal" action="index.php" method="post">
+            <input type="hidden" name="controlador" value="Partidos">
+            <input type="hidden" name="accion" value="editar">
 
-		<label for="COD_PARTIDO">Codigo</label>
-		<input type="number" name="COD_PARTIDO" value="<?php echo $partido->getCOD_PARTIDO(); ?>" readonly>
-		</br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="COD_PARTIDO">COD_PARTIDO</label>
+                <div class="col-sm-5">
+                    <input type="number" class="form-control" name="COD_PARTIDO" value="<?php echo $partido->getCOD_PARTIDO(); ?>" readonly>
+                </div>
+            </div>
 
-		<?php echo isset($errores["FECHA"]) ? "*" : "" ?>
-		<label for="FECHA">FECHA</label>
-		<input type="date" name="FECHA" value="<?php echo $partido->getFECHA(); ?>">
-		</br>
+            <div class="form-group <?php echo isset($errores["FECHA"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="FECHA">FECHA</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["FECHA"]) ? '*' : ''; ?>
+                    <input type="date" class="form-control" name="FECHA" value="<?php echo $partido->getFECHA(); ?>">
+                </div>
+            </div>
 
-		<?php echo isset($errores["COD_EQUIPO1"]) ? "*" : "" ?>
-		<label for="COD_EQUIPO1">COD_EQUIPO1</label>
-		<input type="number" name="COD_EQUIPO1" value="<?php echo $partido->getCOD_EQUIPO1(); ?>">
-		</br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="COD_EQUIPO1">COD_EQUIPO1</label>
+                <div class="col-sm-5">
+                    <select class="form-control" name="COD_EQUIPO1">
+                        <option value="">Selecciona un equipo</option>
+                        <?php
+                        foreach ($equipos as $equipo) {
+                            $selected = ($partido->getCOD_EQUIPO1() == $equipo['COD_EQUIPO']) ? 'selected' : '';
+                            echo "<option value='" . $equipo['COD_EQUIPO'] . "' $selected>" . $equipo['NOMBRE_EQUIPO'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
 
-		<?php echo isset($errores["COD_EQUIPO2"]) ? "*" : "" ?>
-		<label for="COD_EQUIPO2">COD_EQUIPO2</label>
-		<input type="number" name="COD_EQUIPO2" value="<?php echo $partido->getCOD_EQUIPO2(); ?>">
-		</br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="COD_EQUIPO2">COD_EQUIPO2</label>
+                <div class="col-sm-5">
+                    <select class="form-control" name="COD_EQUIPO2">
+                        <option value="">Selecciona un equipo</option>
+                        <?php
+                        foreach ($equipos as $equipo) {
+                            $selected = ($partido->getCOD_EQUIPO2() == $equipo['COD_EQUIPO']) ? 'selected' : '';
+                            echo "<option value='" . $equipo['COD_EQUIPO'] . "' $selected>" . $equipo['NOMBRE_EQUIPO'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
 
-		<?php echo isset($errores["PUNTOS_EQUIPO1"]) ? "*" : "" ?>
-		<label for="PUNTOS_EQUIPO1">PUNTOS_EQUIPO1</label>
-		<input type="number" name="PUNTOS_EQUIPO1" value="<?php echo $partido->getPUNTOS_EQUIPO1(); ?>">
-		</br>
+            <div class="form-group <?php echo isset($errores["PUNTOS_EQUIPO1"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="PUNTOS_EQUIPO1">PUNTOS_EQUIPO1</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["PUNTOS_EQUIPO1"]) ? '*' : ''; ?>
+                    <input type="number" class="form-control" name="PUNTOS_EQUIPO1" value="<?php echo $partido->getPUNTOS_EQUIPO1(); ?>">
+                </div>
+            </div>
 
-		<?php echo isset($errores["PUNTOS_EQUIPO2"]) ? "*" : "" ?>
-		<label for="PUNTOS_EQUIPO2">PUNTOS_EQUIPO2</label>
-		<input type="number" name="PUNTOS_EQUIPO2" value="<?php echo $partido->getPUNTOS_EQUIPO2(); ?>">
-		</br>
+            <div class="form-group <?php echo isset($errores["PUNTOS_EQUIPO2"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="PUNTOS_EQUIPO2">PUNTOS_EQUIPO2</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["PUNTOS_EQUIPO2"]) ? '*' : ''; ?>
+                    <input type="number" class="form-control" name="PUNTOS_EQUIPO2" value="<?php echo $partido->getPUNTOS_EQUIPO2(); ?>">
+                </div>
+            </div>
 
-
-		<input type="submit" name="submit" value="Aceptar">
-	</form>
-	</br>
-	
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <button type="submit" class="btn btn-primary" name="submit">Aceptar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 	<?php
 	// Si hay errores los mostramos.
 	if (isset($errores)):
@@ -55,6 +86,8 @@
 		endforeach;
 	endif;
 	?>
+<!-- Incluimos el pie de página -->
+<?php include_once("common/pie.php"); ?>
 </body>
 
 </html>

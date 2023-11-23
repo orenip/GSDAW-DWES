@@ -1,54 +1,77 @@
-<!-- Vista para añadir un nuevo item a la tabla -->
+<!-- Vista para listar los registros de un determinado modelo -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
-
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Microframework MVC - Modelo, Vista, Controlador</title>
-</head>
-
+<!-- Incluimos la cabecera -->
+<?php include_once("common/cabecera.php"); ?>
 <body>
+    <!-- Incluimos el menú --> 
+    <?php include_once("common/menu.php"); ?>
 	<!-- Formulario para insertar un nuevo item --> 
-	<form action="index.php" method="post">
-		<input type="hidden" name="controlador" value="Jugadores">
-		<input type="hidden" name="accion" value="nuevo">
+	<div class="container">
+        <form class="form-horizontal" action="index.php" method="post">
+            <input type="hidden" name="controlador" value="Jugadores">
+            <input type="hidden" name="accion" value="nuevo">
 
-		<?php echo isset($errores["COD_EQUIPO"]) ? "*" : "" ?>
-		<label for="COD_JUGADOR">COD_JUGADOR</label>
-		<input type="number" name="COD_JUGADOR">
-		</br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="COD_JUGADOR">COD_JUGADOR</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["COD_JUGADOR"]) ? '*' : ''; ?>
+                    <input type="number" class="form-control" name="COD_JUGADOR">
+                </div>
+            </div>
 
-		<?php echo isset($errores["NOMBRE_JUGADOR"]) ? "*" : "" ?>
-		<label for="NOMBRE_JUGADOR">NOMBRE_JUGADOR</label>
-		<input type="text" name="NOMBRE_JUGADOR">
-		</br>
+            <div class="form-group <?php echo isset($errores["NOMBRE_JUGADOR"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="NOMBRE_JUGADOR">NOMBRE_JUGADOR</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["NOMBRE_JUGADOR"]) ? '*' : ''; ?>
+                    <input type="text" class="form-control" name="NOMBRE_JUGADOR">
+                </div>
+            </div>
 
-		<?php echo isset($errores["FECHA_NACIMIENTO"]) ? "*" : "" ?>
-		<label for="FECHA_NACIMIENTO">FECHA_FUNDACION</label>
-		<input type="date" name="FECHA_NACIMIENTO">
-		</br>
+            <div class="form-group <?php echo isset($errores["FECHA_NACIMIENTO"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="FECHA_NACIMIENTO">FECHA_NACIMIENTO</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["FECHA_NACIMIENTO"]) ? '*' : ''; ?>
+                    <input type="date" class="form-control" name="FECHA_NACIMIENTO">
+                </div>
+            </div>
 
-		<?php echo isset($errores["ESTATURA"]) ? "*" : "" ?>
-		<label for="ESTATURA">ESTATURA</label>
-		<input type="number" name="ESTATURA">
-		</br>
+            <div class="form-group <?php echo isset($errores["ESTATURA"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="ESTATURA">ESTATURA</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["ESTATURA"]) ? '*' : ''; ?>
+                    <input type="number" class="form-control" name="ESTATURA">
+                </div>
+            </div>
 
-		<?php echo isset($errores["POSICION"]) ? "*" : "" ?>
-		<label for="POSICION">POSICION</label>
-		<input type="text" name="POSICION">
-		</br>
+            <div class="form-group <?php echo isset($errores["POSICION"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="POSICION">POSICION</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["POSICION"]) ? '*' : ''; ?>
+                    <input type="text" class="form-control" name="POSICION">
+                </div>
+            </div>
 
-		<?php echo isset($errores["EQUIPO"]) ? "*" : "" ?>
-		<label for="EQUIPO">EQUIPO</label>
-		<input type="number" name="EQUIPO">
-		</br>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="EQUIPO">EQUIPO</label>
+                <div class="col-sm-5">
+                    <select class="form-control" name="EQUIPO">
+                        <option value="">Selecciona un Equipo</option>
+                        <?php
+                        foreach ($equipos as $equipo) {
+                            echo "<option value='" . $equipo['COD_EQUIPO'] . "'>" . $equipo['NOMBRE_EQUIPO'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
 
-
-		<input type="submit" name="submit" value="Aceptar">
-	</form>
-	</br>
-
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <button type="submit" class="btn btn-primary" name="submit">Aceptar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 	<?php
 	// Si hay errores se muestran
 	if (isset($errores)):
@@ -57,7 +80,8 @@
 		endforeach;
 	endif;
 	?>
-
+<!-- Incluimos el pie de página -->
+<?php include_once("common/pie.php"); ?>
 </body>
 
 </html>

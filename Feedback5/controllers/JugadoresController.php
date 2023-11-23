@@ -35,6 +35,9 @@ class JugadoresController {
     public function nuevo() {
         require 'models/JugadoresModel.php';
         $jugadores = new JugadoresModel();
+        
+        // Obtén las zonas y pásalas a la vista
+        $equipos = $jugadores->getEquiposList();
 
         $errores = array();
 
@@ -76,7 +79,7 @@ class JugadoresController {
         }
 
         // Si no recibe el item para añadir, devuelve la vista para añadir un nuevo item
-        $this->view->show("JugadoresNuevoView.php", array('errores' => $errores));
+        $this->view->show("JugadoresNuevoView.php", array('errores' => $errores, 'equipos'=>$equipos));
 
 
 
@@ -90,6 +93,9 @@ class JugadoresController {
 
         // Recuperar el item con el código recibido
         $jugador = $jugadores->getById($_REQUEST['COD_JUGADOR']);
+
+        // Obtén las zonas y pásalas a la vista
+        $equipos = $jugadores->getEquiposList();
 
         if ($jugador == null) {
             $this->view->show("errorView.php", array('error' => 'No existe codigo'));
@@ -133,7 +139,7 @@ class JugadoresController {
         }
 
         // Si no se ha pulsado el botón de actualizar se carga la vista para editar el item
-        $this->view->show("JugadoresEditarView.php", array('jugador' => $jugador, 'errores' => $errores));
+        $this->view->show("JugadoresEditarView.php", array('jugador' => $jugador, 'errores' => $errores, 'equipos'=>$equipos));
 
 
 

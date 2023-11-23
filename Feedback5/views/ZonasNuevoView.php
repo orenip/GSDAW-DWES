@@ -1,33 +1,41 @@
-<!-- Vista para añadir un nuevo item a la tabla -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+<!-- Vista para listar los registros de un determinado modelo -->
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Microframework MVC - Modelo, Vista, Controlador</title>
-</head>
-
+<!-- Incluimos la cabecera -->
+<?php include_once("common/cabecera.php"); ?>
 <body>
+    <!-- Incluimos el menú --> 
+    <?php include_once("common/menu.php"); ?>
+
 	<!-- Formulario para insertar un nuevo item --> 
-	<form action="index.php" method="post">
-		<input type="hidden" name="controlador" value="Zonas">
-		<input type="hidden" name="accion" value="nuevo">
+	<div class="container">
+        <form class="form-horizontal" action="index.php" method="post">
+            <input type="hidden" name="controlador" value="Zonas">
+            <input type="hidden" name="accion" value="nuevo">
 
-		<?php echo isset($errores["COD_ZONA"]) ? "*" : "" ?>
-		<label for="COD_ZONA">COD_ZONA</label>
-		<input type="number" name="COD_ZONA">
-		</br>
+            <div class="form-group <?php echo isset($errores["COD_ZONA"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="COD_ZONA">COD_ZONA</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["COD_ZONA"]) ? '*' : ''; ?>
+                    <input type="number" class="form-control" name="COD_ZONA">
+                </div>
+            </div>
 
-		<?php echo isset($errores["NOMBRE_ZONA"]) ? "*" : "" ?>
-		<label for="NOMBRE_ZONA">NOMBRE_ZONA</label>
-		<input type="text" name="NOMBRE_ZONA">
-		</br>
+            <div class="form-group <?php echo isset($errores["NOMBRE_ZONA"]) ? 'has-error' : ''; ?>">
+                <label class="control-label col-sm-2" for="NOMBRE_ZONA">NOMBRE_ZONA</label>
+                <div class="col-sm-5">
+                    <?php echo isset($errores["NOMBRE_ZONA"]) ? '*' : ''; ?>
+                    <input type="text" class="form-control" name="NOMBRE_ZONA">
+                </div>
+            </div>
 
-		<input type="submit" name="submit" value="Aceptar">
-	</form>
-	</br>
-
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-5">
+                    <button type="submit" class="btn btn-primary" name="submit">Aceptar</button>
+                </div>
+            </div>
+        </form>
+    </div>
 	<?php
 	// Si hay errores se muestran
 	if (isset($errores)):
@@ -37,6 +45,8 @@
 	endif;
 	?>
 
+<!-- Incluimos el pie de página -->
+    <?php include_once("common/pie.php"); ?>
 </body>
 
 </html>

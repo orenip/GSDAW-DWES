@@ -36,7 +36,12 @@ class PartidosController {
         require 'models/PartidosModel.php';
         $partidos = new PartidosModel();
 
+        // Obtén las zonas y pásalas a la vista
+        $equipos = $partidos->getEquiposList();
         $errores = array();
+
+  
+
 
         // Si recibe por GET o POST el objeto y lo guarda en la BG
         if (isset($_REQUEST['submit'])) {
@@ -76,7 +81,7 @@ class PartidosController {
         }
 
         // Si no recibe el item para añadir, devuelve la vista para añadir un nuevo item
-        $this->view->show("PartidosNuevoView.php", array('errores' => $errores));
+        $this->view->show("PartidosNuevoView.php", array('errores' => $errores, 'equipos'=>$equipos));
 
 
 
@@ -90,6 +95,9 @@ class PartidosController {
 
         // Recuperar el item con el código recibido
         $partido = $partidos->getById($_REQUEST['COD_PARTIDO']);
+        
+        // Obtén las zonas y pásalas a la vista
+        $equipos = $partidos->getEquiposList();
 
         if ($partido == null) {
             $this->view->show("errorView.php", array('error' => 'No existe codigo'));
@@ -135,7 +143,7 @@ class PartidosController {
         }
 
         // Si no se ha pulsado el botón de actualizar se carga la vista para editar el item
-        $this->view->show("PartidosEditarView.php", array('partido' => $partido, 'errores' => $errores));
+        $this->view->show("PartidosEditarView.php", array('partido' => $partido, 'errores' => $errores, 'equipos'=>$equipos));
 
 
 

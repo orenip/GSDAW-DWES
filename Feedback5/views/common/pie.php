@@ -1,4 +1,4 @@
 <hr />
 <div class="text-center center-block">
-    &copy;ProfeSoro
+    &copy;Jose Antonio López Piñero
 </div>

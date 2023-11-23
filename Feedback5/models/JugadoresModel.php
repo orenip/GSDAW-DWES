@@ -149,6 +149,13 @@ class JugadoresModel
         return $resultado;
     }
 
+    public function getEquiposList()
+    {
+        $consulta = $this->db->prepare('SELECT * FROM EQUIPOS');
+        $consulta->execute();
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 
     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
     public function getById($codigo)

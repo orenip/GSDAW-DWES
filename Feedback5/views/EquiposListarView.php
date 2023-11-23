@@ -1,15 +1,12 @@
 <!-- Vista para listar los registros de un determinado modelo -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
-</head>
-
+<!-- Incluimos la cabecera -->
+<?php include_once("common/cabecera.php"); ?>
 <body>
-    <table>
+    <!-- Incluimos el menú --> 
+    <?php include_once("common/menu.php"); ?>
+    
+    <table class="table table-striped">
         <tr>
          <th>COD_EQUIPO</th>
             <th>NOMBRE_EQUIPO</th>
@@ -17,6 +14,7 @@
             <th>FECHA_FUNDACION</th>
             <th>ZONA</th>
             <th>TITULOS</th>
+            <th colspan=2>ACCIONES</th>
         </tr>
         <?php
         foreach ($equipos as $equipo) {
@@ -41,17 +39,19 @@
                     <?php echo $equipo->getTITULOS() ?>
                 </td>
                 <td>
-                    <a href="index.php?controlador=Equipos&accion=editar&COD_EQUIPO=<?php echo $equipo->getCOD_EQUIPO() ?>">Editar</a>
+                    <a class="btn btn-warning" href="index.php?controlador=Equipos&accion=editar&COD_EQUIPO=<?php echo $equipo->getCOD_EQUIPO() ?>">Editar</a>
                 </td>
                 <td>
-                    <a href="index.php?controlador=Equipos&accion=borrar&COD_EQUIPO=<?php echo $equipo->getCOD_EQUIPO() ?>">Borrar</a>
+                    <a class="btn btn-danger" href="index.php?controlador=Equipos&accion=borrar&COD_EQUIPO=<?php echo $equipo->getCOD_EQUIPO() ?>">Borrar</a>
                 </td>
             </tr>
             <?php
         }
         ?>
     </table>
-    <a href="index.php?controlador=Equipos&accion=nuevo">Nuevo</a>
+    <a class="btn btn-primary" href="index.php?controlador=Equipos&accion=nuevo">Nuevo</a>
+<!-- Incluimos el pie de página -->
+<?php include_once("common/pie.php"); ?>
 </body>
 
 </html>

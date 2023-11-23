@@ -1,18 +1,16 @@
 <!-- Vista para listar los registros de un determinado modelo -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>MVC - Modelo, Vista, Controlador - Jourmoly</title>
-</head>
-
+<!-- Incluimos la cabecera -->
+<?php include_once("common/cabecera.php"); ?>
 <body>
-    <table>
+    <!-- Incluimos el menú --> 
+    <?php include_once("common/menu.php"); ?>
+
+    <table class="table table-striped">
         <tr>
          <th>COD_ZONA</th>
             <th>NOMBRE_ZONA</th>
+            <th colspan=2>ACCIONES</th>
         </tr>
         <?php
         foreach ($zonas as $zona) {
@@ -25,17 +23,19 @@
                     <?php echo $zona->getNOMBRE_ZONA() ?>
                 </td>
                 <td>
-                    <a href="index.php?controlador=Zonas&accion=editar&COD_ZONA=<?php echo $zona->getCOD_ZONA() ?>">Editar</a>
+                    <a class="btn btn-warning" href="index.php?controlador=Zonas&accion=editar&COD_ZONA=<?php echo $zona->getCOD_ZONA() ?>">Editar</a>
                 </td>
                 <td>
-                    <a href="index.php?controlador=Zonas&accion=borrar&COD_ZONA=<?php echo $zona->getCOD_ZONA() ?>">Borrar</a>
+                    <a class='btn btn-danger' href="index.php?controlador=Zonas&accion=borrar&COD_ZONA=<?php echo $zona->getCOD_ZONA() ?>">Borrar</a>
                 </td>
             </tr>
             <?php
         }
         ?>
     </table>
-    <a href="index.php?controlador=Zonas&accion=nuevo">Nuevo</a>
+    <a class="btn btn-primary" href="index.php?controlador=Zonas&accion=nuevo">Nuevo</a>
+<!-- Incluimos el pie de página -->
+<?php include_once("common/pie.php"); ?>
 </body>
 
 </html>
