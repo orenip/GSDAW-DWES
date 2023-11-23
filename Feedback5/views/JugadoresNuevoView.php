@@ -20,7 +20,7 @@
 		</br>
 
 		<?php echo isset($errores["NOMBRE_JUGADOR"]) ? "*" : "" ?>
-		<label for="NOMBRE_JUGADOR">NOMBRE_EQUIPO</label>
+		<label for="NOMBRE_JUGADOR">NOMBRE_JUGADOR</label>
 		<input type="text" name="NOMBRE_JUGADOR">
 		</br>
 
@@ -35,8 +35,8 @@
 		</br>
 
 		<?php echo isset($errores["POSICION"]) ? "*" : "" ?>
-		<label for="EQUIPO">EQUIPO</label>
-		<input type="text" name="EQUIPO">
+		<label for="POSICION">POSICION</label>
+		<input type="text" name="POSICION">
 		</br>
 
 		<?php echo isset($errores["EQUIPO"]) ? "*" : "" ?>

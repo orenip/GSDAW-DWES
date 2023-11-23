@@ -167,8 +167,7 @@ class JugadoresModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        //if ($this->getById($this->getCOD_PARTIDO()) == null) {
-        if (!isset($this->COD_JUGADOR)) {
+        if ($this->getById($this->getCOD_JUGADOR()) == null) {
             $consulta = $this->db->prepare('INSERT INTO JUGADORES(COD_JUGADOR,NOMBRE_JUGADOR,FECHA_NACIMIENTO,ESTATURA,POSICION,EQUIPO) VALUES (?,?,?,?,?,?)');
             $consulta->bindParam(1, $this->COD_JUGADOR);
             $consulta->bindparam(2, $this->NOMBRE_JUGADOR);
@@ -176,6 +175,7 @@ class JugadoresModel
             $consulta->bindparam(4, $this->ESTATURA);
             $consulta->bindparam(5, $this->POSICION);
             $consulta->bindparam(6, $this->EQUIPO);
+
             $consulta->execute();
         } else {
             $consulta = $this->db->prepare('UPDATE JUGADORES SET NOMBRE_JUGADOR=?,FECHA_NACIMIENTO=?,ESTATURA=?,POSICION=?,EQUIPO=? WHERE COD_JUGADOR=?');

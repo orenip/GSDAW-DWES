@@ -25,7 +25,7 @@ class EquiposController {
         //Pasamos a la vista toda la información que se desea representar
         $data['equipos'] = $listado;
 
-        // Finalmente presentamos nuestra plantilla 
+        // Finalmente presentamos nuestra plantilla
         // Llamamos al método "show" de la clase View, que es el motor de plantillas
         // Genera la vista de respuesta a partir de la plantilla y de los datos
         $this->view->show("EquiposListarView.php", $data);
@@ -35,6 +35,9 @@ class EquiposController {
     public function nuevo() {
         require 'models/EquiposModel.php';
         $equipos = new EquiposModel();
+
+        // Obtén las zonas y pásalas a la vista
+        $zonas = $equipos->getZonasList();
 
         $errores = array();
 
@@ -50,10 +53,10 @@ class EquiposController {
 
             if (!isset($_REQUEST['PRESUPUESTO']) || empty($_REQUEST['PRESUPUESTO']))
                 $errores['PRESUPUESTO'] = "* PRESUPUESTO: debes indicar un PRESUPUESTO.";
-        
+
             if (!isset($_REQUEST['FECHA_FUNDACION']) || empty($_REQUEST['FECHA_FUNDACION']))
                 $errores['FECHA_FUNDACION'] = "* FECHA_FUNDACION: debes indicar una FECHA_FUNDACION.";
-            
+
             if (!isset($_REQUEST['ZONA']) || empty($_REQUEST['ZONA']))
                 $errores['ZONA'] = "* ZONA: debes indicar una ZONA.";
 
@@ -76,7 +79,7 @@ class EquiposController {
         }
 
         // Si no recibe el item para añadir, devuelve la vista para añadir un nuevo item
-        $this->view->show("EquiposNuevoView.php", array('errores' => $errores));
+        $this->view->show("EquiposNuevoView.php", array('errores' => $errores, 'zonas' => $zonas));
 
 
 
@@ -97,6 +100,9 @@ class EquiposController {
 
         $errores = array();
 
+        // Obtén las zonas y pásalas a la vista
+        $zonas = $equipos->getZonasList();
+
         // Si se ha pulsado el botón de actualizar
         if (isset($_REQUEST['submit'])) {
 
@@ -106,10 +112,10 @@ class EquiposController {
 
             if (!isset($_REQUEST['PRESUPUESTO']) || empty($_REQUEST['PRESUPUESTO']))
                 $errores['PRESUPUESTO'] = "* PRESUPUESTO: debes indicar un PRESUPUESTO.";
-        
+
             if (!isset($_REQUEST['FECHA_FUNDACION']) || empty($_REQUEST['FECHA_FUNDACION']))
                 $errores['FECHA_FUNDACION'] = "* FECHA_FUNDACION: debes indicar una FECHA_FUNDACION.";
-            
+
             if (!isset($_REQUEST['ZONA']) || empty($_REQUEST['ZONA']))
                 $errores['ZONA'] = "* ZONA: debes indicar una ZONA.";
 
@@ -133,31 +139,55 @@ class EquiposController {
         }
 
         // Si no se ha pulsado el botón de actualizar se carga la vista para editar el item
-        $this->view->show("EquiposEditarView.php", array('equipo' => $equipo, 'errores' => $errores));
+        $this->view->show("EquiposEditarView.php", array('equipo' => $equipo, 'errores' => $errores, 'zonas' => $zonas));
 
 
 
     }
 
-    // Método para borrar un item 
+    // // Método para borrar un item
+    // public function borrar() {
+    //     //Incluye el modelo que corresponde
+    //     require_once 'models/EquiposModel.php';
+
+    //     //Creamos una instancia de nuestro "modelo"
+    //     $equipos = new EquiposModel();
+
+    //     // Recupera el item con el código recibido por GET o por POST
+    //     $equipo = $equipos->getById($_REQUEST['COD_EQUIPO']);
+
+    //     if ($equipo == null) {
+    //         $this->view->show("errorView.php", array('error' => 'No existe codigo'));
+    //     } else {
+    //         // Si existe lo elimina de la base de datos y vuelve al inicio de la aplicación
+    //         $equipo->delete();
+    //         header("Location: index.php?controlador=Equipos&accion=listar");
+    //     }
+    // }
+
     public function borrar() {
-        //Incluye el modelo que corresponde
-        require_once 'models/EquiposModel.php';
+    //Incluye el modelo que corresponde
+    require_once 'models/EquiposModel.php';
 
-        //Creamos una instancia de nuestro "modelo"
-        $equipos = new EquiposModel();
+   //Creamos una instancia de nuestro "modelo"
+    $equipos = new EquiposModel();
 
-        // Recupera el item con el código recibido por GET o por POST
-        $equipo = $equipos->getById($_REQUEST['COD_EQUIPO']);
+    // Recupera el item con el código recibido por GET o por POST
+    $equipo = $equipos->getById($_REQUEST['COD_EQUIPO']);
 
-        if ($equipo == null) {
-            $this->view->show("errorView.php", array('error' => 'No existe codigo'));
-        } else {
+    if ($equipo == null) {
+        $this->view->show("errorView.php", array('error' => 'No existe código'));
+    } else {
+        try {
             // Si existe lo elimina de la base de datos y vuelve al inicio de la aplicación
             $equipo->delete();
             header("Location: index.php?controlador=Equipos&accion=listar");
+        } catch (PDOException $e) {
+            //Si tiene alguna llave foranea notificamos con un mensaje
+            $this->view->show("errorView.php", array('error' => 'No se puede borrar el equipo porque tiene referencias en otra tabla.'));
+           
         }
     }
-
+}
 }
 ?>

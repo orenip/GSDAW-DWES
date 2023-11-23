@@ -35,9 +35,16 @@
 
 		<?php echo isset($errores["ZONA"]) ? "*" : "" ?>
 		<label for="ZONA">ZONA</label>
-		<input type="number" name="ZONA" value="<?php echo $equipo->getZONA(); ?>">
+		<select name="ZONA">
+			<option value="">Selecciona una Zona</option>
+			<?php
+			foreach ($zonas as $zona) {
+				$selected = ($equipo->getZONA() == $zona['COD_ZONA']) ? 'selected' : '';
+				echo "<option value='" . $zona['COD_ZONA'] . "' $selected>" . $zona['NOMBRE_ZONA'] . "</option>";
+			}
+			?>
+		</select>
 		</br>
-
 		<?php echo isset($errores["TITULOS"]) ? "*" : "" ?>
 		<label for="TITULOS">TITULOS</label>
 		<input type="number" name="TITULOS" value="<?php echo $equipo->getTITULOS(); ?>">

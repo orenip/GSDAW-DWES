@@ -161,6 +161,13 @@ class EquiposModel
         return $resultado;
     }
 
+    public function getZonasList()
+    {
+        $consulta = $this->db->prepare('SELECT * FROM ZONAS');
+        $consulta->execute();
+        $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 
     // Método que devuelve (si existe en BD) un objeto ItemModel con un código determinado
     public function getById($codigo)
@@ -179,8 +186,7 @@ class EquiposModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        //if ($this->getById($this->getCOD_PARTIDO()) == null) {
-        if (!isset($this->COD_EQUIPO)) {
+        if ($this->getById($this->getCOD_EQUIPO()) == null) {
             $consulta = $this->db->prepare('INSERT INTO EQUIPOS(COD_EQUIPO,NOMBRE_EQUIPO,PRESUPUESTO,FECHA_FUNDACION,ZONA,TITULOS) VALUES (?,?,?,?,?,?)');
             $consulta->bindParam(1, $this->COD_EQUIPO);
             $consulta->bindparam(2, $this->NOMBRE_EQUIPO);

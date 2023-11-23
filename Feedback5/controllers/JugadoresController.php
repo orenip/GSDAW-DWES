@@ -55,7 +55,7 @@ class JugadoresController {
                 $errores['ESTATURA'] = "* ESTATURA: debes indicar un ESTATURA.";
 
             if (!isset($_REQUEST['POSICION']) || empty($_REQUEST['POSICION']))
-                $errores['ZPOSICIONONA'] = "* ZOPOSICIONNA: debes indicar una POSICION.";
+                $errores['POSICION'] = "* POSICION: debes indicar una POSICION.";
 
             if (!isset($_REQUEST['EQUIPO']) || empty($_REQUEST['EQUIPO']))
                 $errores['EQUIPO'] = "* EQUIPO: debes indicar una EQUIPO.";
@@ -133,7 +133,7 @@ class JugadoresController {
         }
 
         // Si no se ha pulsado el botón de actualizar se carga la vista para editar el item
-        $this->view->show("JugadoresEditarView.php", array('jugador' => $equipo, 'errores' => $errores));
+        $this->view->show("JugadoresEditarView.php", array('jugador' => $jugador, 'errores' => $errores));
 
 
 

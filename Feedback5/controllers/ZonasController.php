@@ -121,9 +121,15 @@ class ZonasController {
         if ($zona == null) {
             $this->view->show("errorView.php", array('error' => 'No existe codigo'));
         } else {
-            // Si existe lo elimina de la base de datos y vuelve al inicio de la aplicación
-            $zona->delete();
-            header("Location: index.php?controlador=JZonas&accion=listar");
+            try {
+                // Si existe lo elimina de la base de datos y vuelve al inicio de la aplicación
+                $zona->delete();
+                header("Location: index.php?controlador=Zonas&accion=listar");
+            } catch (PDOException $e) {
+                //Si tiene alguna llave foranea notificamos con un mensaje
+                $this->view->show("errorView.php", array('error' => 'No se puede borrar el equipo porque tiene referencias en otra tabla.'));
+            
+            }
         }
     }
 

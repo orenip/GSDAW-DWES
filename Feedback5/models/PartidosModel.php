@@ -152,8 +152,7 @@ class PartidosModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        //if ($this->getById($this->getCOD_PARTIDO()) == null) {
-		if(!isset($this->COD_PARTIDO)){
+        if ($this->getById($this->getCOD_PARTIDO()) == null) {
             $consulta = $this->db->prepare('INSERT INTO PARTIDOS(COD_PARTIDO,FECHA,COD_EQUIPO1,COD_EQUIPO2,PUNTOS_EQUIPO1,PUNTOS_EQUIPO2) VALUES (?,?,?,?,?,?)');
             $consulta->bindParam(1, $this->COD_PARTIDO);
             $consulta->bindParam(2, $this->FECHA);

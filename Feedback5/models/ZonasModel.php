@@ -96,8 +96,7 @@ class ZonasModel
     // Si tiene ya código actualiza el registro y si no tiene lo inserta
     public function save()
     {
-        //if ($this->getById($this->getCOD_PARTIDO()) == null) {
-        if (!isset($this->COD_ZONA)) {
+        if ($this->getById($this->getCOD_ZONA()) == null) {
             $consulta = $this->db->prepare('INSERT INTO ZONAS(COD_ZONA,NOMBRE_ZONA) VALUES (?,?)');
             $consulta->bindParam(1, $this->COD_ZONA);
             $consulta->bindparam(2, $this->NOMBRE_ZONA);

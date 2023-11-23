@@ -34,11 +34,18 @@
 		<input type="date" name="FECHA_FUNDACION">
 		</br>
 
-
-		<?php echo isset($errores["ZONA"]) ? "*" : "" ?>
+		
 		<label for="ZONA">ZONA</label>
-		<input type="number" name="ZONA">
-		</br>
+		<select name="ZONA">
+			<option value="">Selecciona una Zona</option>
+			<?php
+			// Loop through the zones retrieved from the controller
+			foreach ($zonas as $zona) {
+				echo "<option value='" . $zona['COD_ZONA'] . "'>" . $zona['NOMBRE_ZONA'] . "</option>";
+			}
+			?>
+		</select>
+		<br>
 
 		<?php echo isset($errores["TITULOS"]) ? "*" : "" ?>
 		<label for="TITULOS">TITULOS</label>

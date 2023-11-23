@@ -33,8 +33,8 @@
 		</br>
 
 		<?php echo isset($errores["POSICION"]) ? "*" : "" ?>
-		<label for="EQUIPO">EQUIPO</label>
-		<input type="text" name="EQUIPO" value="<?php echo $jugador->getEQUIPO(); ?>">
+		<label for="POSICION">POSICION</label>
+		<input type="text" name="POSICION" value="<?php echo $jugador->getPOSICION(); ?>">
 		</br>
 
 		<?php echo isset($errores["EQUIPO"]) ? "*" : "" ?>
