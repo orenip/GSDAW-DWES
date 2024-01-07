@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipos{% endblock %}
+
+{% block body %}
+    <h1>Equipos</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>CodEquipo</th>
+                <td>{{ equipo.codEquipo }}</td>
+            </tr>
+            <tr>
+                <th>NombreEquipo</th>
+                <td>{{ equipo.nombreEquipo }}</td>
+            </tr>
+            <tr>
+                <th>Presupuesto</th>
+                <td>{{ equipo.presupuesto }}</td>
+            </tr>
+            <tr>
+                <th>FechaFundacion</th>
+                <td>{{ equipo.fechaFundacion ? equipo.fechaFundacion|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Titulos</th>
+                <td>{{ equipo.titulos }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_equipos_index') }}">back to list</a>
+
+    <a href="{{ path('app_equipos_edit', {'codEquipo': equipo.codEquipo}) }}">edit</a>
+
+    {{ include('equipos/_delete_form.html.twig') }}
+{% endblock %}

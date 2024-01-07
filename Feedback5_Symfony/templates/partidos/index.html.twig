@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partidos index{% endblock %}
+
+{% block body %}
+    <h1>Partidos index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CodPartido</th>
+                <th>Fecha</th>
+                <th>PuntosEquipo1</th>
+                <th>PuntosEquipo2</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for partido in partidos %}
+            <tr>
+                <td>{{ partido.codPartido }}</td>
+                <td>{{ partido.fecha ? partido.fecha|date('Y-m-d') : '' }}</td>
+                <td>{{ partido.puntosEquipo1 }}</td>
+                <td>{{ partido.puntosEquipo2 }}</td>
+                <td>
+                    <a href="{{ path('app_partidos_show', {'codPartido': partido.codPartido}) }}">show</a>
+                    <a href="{{ path('app_partidos_edit', {'codPartido': partido.codPartido}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_partidos_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jugadores index{% endblock %}
+
+{% block body %}
+    <h1>Jugadores index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CodJugador</th>
+                <th>NombreJugador</th>
+                <th>FechaNacimiento</th>
+                <th>Estatura</th>
+                <th>Posicion</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jugadore in jugadores %}
+            <tr>
+                <td>{{ jugadore.codJugador }}</td>
+                <td>{{ jugadore.nombreJugador }}</td>
+                <td>{{ jugadore.fechaNacimiento ? jugadore.fechaNacimiento|date('Y-m-d') : '' }}</td>
+                <td>{{ jugadore.estatura }}</td>
+                <td>{{ jugadore.posicion }}</td>
+                <td>
+                    <a href="{{ path('app_jugadores_show', {'codJugador': jugadore.codJugador}) }}">show</a>
+                    <a href="{{ path('app_jugadores_edit', {'codJugador': jugadore.codJugador}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_jugadores_new') }}">Create new</a>
+{% endblock %}
