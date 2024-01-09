@@ -47,20 +47,20 @@ class Partidos
      *
      * @ORM\ManyToOne(targetEntity="Equipos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="COD_EQUIPO2", referencedColumnName="COD_EQUIPO")
+     *   @ORM\JoinColumn(name="COD_EQUIPO1", referencedColumnName="COD_EQUIPO")
      * })
      */
-    private $codEquipo2;
+    private $codEquipo1;
 
     /**
      * @var \Equipos
      *
      * @ORM\ManyToOne(targetEntity="Equipos")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="COD_EQUIPO1", referencedColumnName="COD_EQUIPO")
+     *   @ORM\JoinColumn(name="COD_EQUIPO2", referencedColumnName="COD_EQUIPO")
      * })
      */
-    private $codEquipo1;
+    private $codEquipo2;
 
 
 }

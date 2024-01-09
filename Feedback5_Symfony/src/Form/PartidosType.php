@@ -15,8 +15,8 @@ class PartidosType extends AbstractType
             ->add('fecha')
             ->add('puntosEquipo1')
             ->add('puntosEquipo2')
-            ->add('codEquipo2')
             ->add('codEquipo1')
+            ->add('codEquipo2')
         ;
     }
 

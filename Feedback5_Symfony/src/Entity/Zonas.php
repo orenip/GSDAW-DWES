@@ -19,14 +19,14 @@ class Zonas
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $COD_ZONA;
+    private $codZona;
 
     /**
      * @var string
      *
      * @ORM\Column(name="NOMBRE_ZONA", type="string", length=24, nullable=false)
      */
-    private $NOMBRE_ZONA;
+    private $nombreZona;
 
 
 }

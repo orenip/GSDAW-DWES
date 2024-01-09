@@ -12,7 +12,7 @@ class ZonasType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('NOMBRE_ZONA')
+            ->add('nombreZona')
         ;
     }
 

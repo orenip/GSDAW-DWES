@@ -45,7 +45,7 @@ class ZonasController extends AbstractController
         ]);
     }
 
-    #[Route('/{COD_ZONA}', name: 'app_zonas_show', methods: ['GET'])]
+    #[Route('/{codZona}', name: 'app_zonas_show', methods: ['GET'])]
     public function show(Zonas $zona): Response
     {
         return $this->render('zonas/show.html.twig', [
@@ -53,7 +53,7 @@ class ZonasController extends AbstractController
         ]);
     }
 
-    #[Route('/{COD_ZONA}/edit', name: 'app_zonas_edit', methods: ['GET', 'POST'])]
+    #[Route('/{codZona}/edit', name: 'app_zonas_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Zonas $zona, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ZonasType::class, $zona);
@@ -71,10 +71,10 @@ class ZonasController extends AbstractController
         ]);
     }
 
-    #[Route('/{COD_ZONA}', name: 'app_zonas_delete', methods: ['POST'])]
+    #[Route('/{codZona}', name: 'app_zonas_delete', methods: ['POST'])]
     public function delete(Request $request, Zonas $zona, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$zona->getCOD_ZONA(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$zona->getCodZona(), $request->request->get('_token'))) {
             $entityManager->remove($zona);
             $entityManager->flush();
         }
