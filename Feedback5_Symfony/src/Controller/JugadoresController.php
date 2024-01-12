@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Jugadores;
 use App\Form\JugadoresType;
+use App\Repository\JugadoresRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class JugadoresController extends AbstractController
 {
     #[Route('/', name: 'app_jugadores_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(JugadoresRepository $jugadoresRepository): Response
     {
-        $jugadores = $entityManager
-            ->getRepository(Jugadores::class)
-            ->findAll();
-
         return $this->render('jugadores/index.html.twig', [
-            'jugadores' => $jugadores,
+            'jugadores' => $jugadoresRepository->findAll(),
         ]);
     }
 
@@ -45,7 +42,7 @@ class JugadoresController extends AbstractController
         ]);
     }
 
-    #[Route('/{codJugador}', name: 'app_jugadores_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_jugadores_show', methods: ['GET'])]
     public function show(Jugadores $jugadore): Response
     {
         return $this->render('jugadores/show.html.twig', [
@@ -53,7 +50,7 @@ class JugadoresController extends AbstractController
         ]);
     }
 
-    #[Route('/{codJugador}/edit', name: 'app_jugadores_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_jugadores_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Jugadores $jugadore, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(JugadoresType::class, $jugadore);
@@ -71,10 +68,10 @@ class JugadoresController extends AbstractController
         ]);
     }
 
-    #[Route('/{codJugador}', name: 'app_jugadores_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_jugadores_delete', methods: ['POST'])]
     public function delete(Request $request, Jugadores $jugadore, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$jugadore->getCodJugador(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$jugadore->getId(), $request->request->get('_token'))) {
             $entityManager->remove($jugadore);
             $entityManager->flush();
         }

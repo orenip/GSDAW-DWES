@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Partidos;
 use App\Form\PartidosType;
+use App\Repository\PartidosRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class PartidosController extends AbstractController
 {
     #[Route('/', name: 'app_partidos_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(PartidosRepository $partidosRepository): Response
     {
-        $partidos = $entityManager
-            ->getRepository(Partidos::class)
-            ->findAll();
-
         return $this->render('partidos/index.html.twig', [
-            'partidos' => $partidos,
+            'partidos' => $partidosRepository->findAll(),
         ]);
     }
 
@@ -45,7 +42,7 @@ class PartidosController extends AbstractController
         ]);
     }
 
-    #[Route('/{codPartido}', name: 'app_partidos_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_partidos_show', methods: ['GET'])]
     public function show(Partidos $partido): Response
     {
         return $this->render('partidos/show.html.twig', [
@@ -53,7 +50,7 @@ class PartidosController extends AbstractController
         ]);
     }
 
-    #[Route('/{codPartido}/edit', name: 'app_partidos_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_partidos_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Partidos $partido, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(PartidosType::class, $partido);
@@ -71,10 +68,10 @@ class PartidosController extends AbstractController
         ]);
     }
 
-    #[Route('/{codPartido}', name: 'app_partidos_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_partidos_delete', methods: ['POST'])]
     public function delete(Request $request, Partidos $partido, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$partido->getCodPartido(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$partido->getId(), $request->request->get('_token'))) {
             $entityManager->remove($partido);
             $entityManager->flush();
         }

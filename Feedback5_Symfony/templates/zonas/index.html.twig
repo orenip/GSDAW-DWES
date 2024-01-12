@@ -4,23 +4,31 @@
 
 {% block body %}
     <h1>Zonas index</h1>
+    <nav>
+        <ul>
+            <a href="{{ path('app_equipos_index') }}">Equipos</a>
+            <a href="{{ path('app_partidos_index') }}">Partidos</a>
+            <a href="{{ path('app_jugadores_index') }}">Jugadores</a>
+            <a href="{{ path('app_zonas_index') }}">Zonas</a>
+        </ul>
+    </nav>
 
     <table class="table">
         <thead>
             <tr>
-                <th>CodZona</th>
-                <th>NombreZona</th>
+                <th>Id</th>
+                <th>NOMBRE_ZONA</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for zona in zonas %}
             <tr>
-                <td>{{ zona.codZona }}</td>
-                <td>{{ zona.nombreZona }}</td>
+                <td>{{ zona.id }}</td>
+                <td>{{ zona.NOMBREZONA }}</td>
                 <td>
-                    <a href="{{ path('app_zonas_show', {'codZona': zona.codZona}) }}">show</a>
-                    <a href="{{ path('app_zonas_edit', {'codZona': zona.codZona}) }}">edit</a>
+                    <a href="{{ path('app_zonas_show', {'id': zona.id}) }}">show</a>
+                    <a href="{{ path('app_zonas_edit', {'id': zona.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

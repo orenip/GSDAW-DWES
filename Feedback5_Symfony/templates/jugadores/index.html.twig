@@ -4,29 +4,36 @@
 
 {% block body %}
     <h1>Jugadores index</h1>
-
+    <nav>
+        <ul>
+            <a href="{{ path('app_equipos_index') }}">Equipos</a>
+            <a href="{{ path('app_partidos_index') }}">Partidos</a>
+            <a href="{{ path('app_jugadores_index') }}">Jugadores</a>
+            <a href="{{ path('app_zonas_index') }}">Zonas</a>
+        </ul>
+    </nav>
     <table class="table">
         <thead>
             <tr>
-                <th>CodJugador</th>
-                <th>NombreJugador</th>
-                <th>FechaNacimiento</th>
-                <th>Estatura</th>
-                <th>Posicion</th>
+                <th>Id</th>
+                <th>NOMBRE_JUGADOR</th>
+                <th>FECHA_NACIMIENTO</th>
+                <th>ESTATURA</th>
+                <th>POSICION</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for jugadore in jugadores %}
             <tr>
-                <td>{{ jugadore.codJugador }}</td>
-                <td>{{ jugadore.nombreJugador }}</td>
-                <td>{{ jugadore.fechaNacimiento ? jugadore.fechaNacimiento|date('Y-m-d') : '' }}</td>
-                <td>{{ jugadore.estatura }}</td>
-                <td>{{ jugadore.posicion }}</td>
+                <td>{{ jugadore.id }}</td>
+                <td>{{ jugadore.NOMBREJUGADOR }}</td>
+                <td>{{ jugadore.FECHANACIMIENTO ? jugadore.FECHANACIMIENTO|date('Y-m-d') : '' }}</td>
+                <td>{{ jugadore.ESTATURA }}</td>
+                <td>{{ jugadore.POSICION }}</td>
                 <td>
-                    <a href="{{ path('app_jugadores_show', {'codJugador': jugadore.codJugador}) }}">show</a>
-                    <a href="{{ path('app_jugadores_edit', {'codJugador': jugadore.codJugador}) }}">edit</a>
+                    <a href="{{ path('app_jugadores_show', {'id': jugadore.id}) }}">show</a>
+                    <a href="{{ path('app_jugadores_edit', {'id': jugadore.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

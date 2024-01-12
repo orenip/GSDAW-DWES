@@ -12,11 +12,9 @@ class PartidosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('fecha')
-            ->add('puntosEquipo1')
-            ->add('puntosEquipo2')
-            ->add('codEquipo1')
-            ->add('codEquipo2')
+            ->add('FECHA')
+            ->add('PUNTOS_EQUIPO1')
+            ->add('PUNTOS_EQUIPO2')
         ;
     }
 

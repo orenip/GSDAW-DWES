@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Equipos;
 use App\Form\EquiposType;
+use App\Repository\EquiposRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class EquiposController extends AbstractController
 {
     #[Route('/', name: 'app_equipos_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(EquiposRepository $equiposRepository): Response
     {
-        $equipos = $entityManager
-            ->getRepository(Equipos::class)
-            ->findAll();
-
         return $this->render('equipos/index.html.twig', [
-            'equipos' => $equipos,
+            'equipos' => $equiposRepository->findAll(),
         ]);
     }
 
@@ -45,7 +42,7 @@ class EquiposController extends AbstractController
         ]);
     }
 
-    #[Route('/{codEquipo}', name: 'app_equipos_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_equipos_show', methods: ['GET'])]
     public function show(Equipos $equipo): Response
     {
         return $this->render('equipos/show.html.twig', [
@@ -53,7 +50,7 @@ class EquiposController extends AbstractController
         ]);
     }
 
-    #[Route('/{codEquipo}/edit', name: 'app_equipos_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_equipos_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Equipos $equipo, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EquiposType::class, $equipo);
@@ -71,10 +68,10 @@ class EquiposController extends AbstractController
         ]);
     }
 
-    #[Route('/{codEquipo}', name: 'app_equipos_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_equipos_delete', methods: ['POST'])]
     public function delete(Request $request, Equipos $equipo, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$equipo->getCodEquipo(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$equipo->getId(), $request->request->get('_token'))) {
             $entityManager->remove($equipo);
             $entityManager->flush();
         }

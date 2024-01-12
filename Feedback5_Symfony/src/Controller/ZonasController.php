@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Zonas;
 use App\Form\ZonasType;
+use App\Repository\ZonasRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ZonasController extends AbstractController
 {
     #[Route('/', name: 'app_zonas_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
+    public function index(ZonasRepository $zonasRepository): Response
     {
-        $zonas = $entityManager
-            ->getRepository(Zonas::class)
-            ->findAll();
-
         return $this->render('zonas/index.html.twig', [
-            'zonas' => $zonas,
+            'zonas' => $zonasRepository->findAll(),
         ]);
     }
 
@@ -45,7 +42,7 @@ class ZonasController extends AbstractController
         ]);
     }
 
-    #[Route('/{codZona}', name: 'app_zonas_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_zonas_show', methods: ['GET'])]
     public function show(Zonas $zona): Response
     {
         return $this->render('zonas/show.html.twig', [
@@ -53,7 +50,7 @@ class ZonasController extends AbstractController
         ]);
     }
 
-    #[Route('/{codZona}/edit', name: 'app_zonas_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_zonas_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Zonas $zona, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ZonasType::class, $zona);
@@ -71,10 +68,10 @@ class ZonasController extends AbstractController
         ]);
     }
 
-    #[Route('/{codZona}', name: 'app_zonas_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_zonas_delete', methods: ['POST'])]
     public function delete(Request $request, Zonas $zona, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$zona->getCodZona(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$zona->getId(), $request->request->get('_token'))) {
             $entityManager->remove($zona);
             $entityManager->flush();
         }

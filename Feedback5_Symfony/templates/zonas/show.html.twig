@@ -8,19 +8,19 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>CodZona</th>
-                <td>{{ zona.codZona }}</td>
+                <th>Id</th>
+                <td>{{ zona.id }}</td>
             </tr>
             <tr>
-                <th>NombreZona</th>
-                <td>{{ zona.nombreZona }}</td>
+                <th>NOMBRE_ZONA</th>
+                <td>{{ zona.NOMBREZONA }}</td>
             </tr>
         </tbody>
     </table>
 
     <a href="{{ path('app_zonas_index') }}">back to list</a>
 
-    <a href="{{ path('app_zonas_edit', {'codZona': zona.codZona}) }}">edit</a>
+    <a href="{{ path('app_zonas_edit', {'id': zona.id}) }}">edit</a>
 
     {{ include('zonas/_delete_form.html.twig') }}
 {% endblock %}

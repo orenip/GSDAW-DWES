@@ -12,11 +12,10 @@ class EquiposType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nombreEquipo')
-            ->add('presupuesto')
-            ->add('fechaFundacion')
-            ->add('titulos')
-            ->add('zona')
+            ->add('NOMBRE_EQUIPO')
+            ->add('PRESUPUESTO')
+            ->add('FECHA_FUNDACION')
+            ->add('TITULOS')
         ;
     }
 

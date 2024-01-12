@@ -4,29 +4,36 @@
 
 {% block body %}
     <h1>Equipos index</h1>
-
+    <nav>
+        <ul>
+            <a href="{{ path('app_equipos_index') }}">Equipos</a>
+            <a href="{{ path('app_partidos_index') }}">Partidos</a>
+            <a href="{{ path('app_jugadores_index') }}">Jugadores</a>
+            <a href="{{ path('app_zonas_index') }}">Zonas</a>
+        </ul>
+    </nav>
     <table class="table">
         <thead>
             <tr>
-                <th>CodEquipo</th>
-                <th>NombreEquipo</th>
-                <th>Presupuesto</th>
-                <th>FechaFundacion</th>
-                <th>Titulos</th>
+                <th>Id</th>
+                <th>NOMBRE_EQUIPO</th>
+                <th>PRESUPUESTO</th>
+                <th>FECHA_FUNDACION</th>
+                <th>TITULOS</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for equipo in equipos %}
             <tr>
-                <td>{{ equipo.codEquipo }}</td>
-                <td>{{ equipo.nombreEquipo }}</td>
-                <td>{{ equipo.presupuesto }}</td>
-                <td>{{ equipo.fechaFundacion ? equipo.fechaFundacion|date('Y-m-d') : '' }}</td>
-                <td>{{ equipo.titulos }}</td>
+                <td>{{ equipo.id }}</td>
+                <td>{{ equipo.NOMBREEQUIPO }}</td>
+                <td>{{ equipo.PRESUPUESTO }}</td>
+                <td>{{ equipo.FECHAFUNDACION ? equipo.FECHAFUNDACION|date('Y-m-d') : '' }}</td>
+                <td>{{ equipo.TITULOS }}</td>
                 <td>
-                    <a href="{{ path('app_equipos_show', {'codEquipo': equipo.codEquipo}) }}">show</a>
-                    <a href="{{ path('app_equipos_edit', {'codEquipo': equipo.codEquipo}) }}">edit</a>
+                    <a href="{{ path('app_equipos_show', {'id': equipo.id}) }}">show</a>
+                    <a href="{{ path('app_equipos_edit', {'id': equipo.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

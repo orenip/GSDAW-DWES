@@ -12,11 +12,10 @@ class JugadoresType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nombreJugador')
-            ->add('fechaNacimiento')
-            ->add('estatura')
-            ->add('posicion')
-            ->add('equipo')
+            ->add('NOMBRE_JUGADOR')
+            ->add('FECHA_NACIMIENTO')
+            ->add('ESTATURA')
+            ->add('POSICION')
         ;
     }
 
