@@ -11,29 +11,25 @@ class Partidos
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "COD_PARTIDO")]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(name: "FECHA", type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $FECHA = null;
 
-    #[ORM\Column(name: "PUNTOS_EQUIPO1")]
+    #[ORM\Column]
     private ?int $PUNTOS_EQUIPO1 = null;
 
-    #[ORM\Column(name: "PUNTOS_EQUIPO2")]
+    #[ORM\Column]
     private ?int $PUNTOS_EQUIPO2 = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Equipos")
-     * @ORM\JoinColumn(name="COD_EQUIPO1", referencedColumnName="COD_EQUIPO")
-     */
-    private ?Equipos $equipo1 = null;
+    #[ORM\ManyToOne(inversedBy: 'lista_partidos')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Equipos $COD_EQUIPO1 = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Equipos")
-     * @ORM\JoinColumn(name="COD_EQUIPO2", referencedColumnName="COD_EQUIPO")
-     */
-    private ?Equipos $equipo2 = null;
+    #[ORM\ManyToOne(inversedBy: 'lista_partidos2')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Equipos $COD_EQUIPO2 = null;
 
     public function getId(): ?int
     {
@@ -76,26 +72,26 @@ class Partidos
         return $this;
     }
 
-    public function getEquipo1(): ?Equipos
+    public function getCODEQUIPO1(): ?Equipos
     {
-        return $this->equipo1;
+        return $this->COD_EQUIPO1;
     }
 
-    public function setEquipo1(?Equipos $equipo1): static
+    public function setCODEQUIPO1(?Equipos $COD_EQUIPO1): static
     {
-        $this->equipo1 = $equipo1;
+        $this->COD_EQUIPO1 = $COD_EQUIPO1;
 
         return $this;
     }
 
-    public function getEquipo2(): ?Equipos
+    public function getCODEQUIPO2(): ?Equipos
     {
-        return $this->equipo2;
+        return $this->COD_EQUIPO2;
     }
 
-    public function setEquipo2(?Equipos $equipo2): static
+    public function setCODEQUIPO2(?Equipos $COD_EQUIPO2): static
     {
-        $this->equipo2 = $equipo2;
+        $this->COD_EQUIPO2 = $COD_EQUIPO2;
 
         return $this;
     }

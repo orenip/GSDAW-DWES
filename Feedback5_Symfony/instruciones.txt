@@ -1,0 +1,17 @@
+Dado el siguiente esquema de BD (utiliza el script baloncesto.sql adjunto a esta tarea para crear el esquema):
+ 
+Debes implementar, utilizando el framework Symfony, una aplicación web que te permita gestionar la información de esta BD. La funcionalidad de la aplicación será la siguiente:
+•	Gestión de las zonas (1,5 puntos)
+o	CRUD de la tabla ZONAS
+•	Gestión de equipos (2 puntos)
+o	CRUD de la tabla EQUIPOS
+o	La ZONA se elegirá con una lista desplegable que mostrará las distintas zonas registradas en la tabla ZONAS
+•	Gestión de jugadores (2 puntos)
+o	CRUD de la tabla JUGADORES
+o	El equipo del jugador se elegirá de una lista desplegable con los distintos equipos.
+•	Gestión de partidos (2,5 puntos)
+o	CRUD de la tabla PARTIDOS
+o	Los equipos se eligen de sendas listas desplegables
+•	Autentificación en la aplicación (2 puntos)
+o	Haciendo uso de las herramientas que incluye Symfony debes hacer que para poder usar la aplicación sea necesario autentificarse como usuario de la misma.
+o	Existirá un usuario “usuario” con contraseña “planes” que permitirá usar la aplicación.

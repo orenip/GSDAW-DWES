@@ -11,26 +11,24 @@ class Jugadores
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "COD_JUGADOR")]
+    #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(name: "NOMBRE_JUGADOR", length: 40)]
+    #[ORM\Column(length: 40)]
     private ?string $NOMBRE_JUGADOR = null;
 
-    #[ORM\Column(name: "FECHA_NACIMIENTO", type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $FECHA_NACIMIENTO = null;
 
-    #[ORM\Column(name: "ESTATURA")]
+    #[ORM\Column]
     private ?int $ESTATURA = null;
 
-    #[ORM\Column(name: "POSICION", length: 12)]
+    #[ORM\Column(length: 12)]
     private ?string $POSICION = null;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Equipos")
-     * @ORM\JoinColumn(name="EQUIPO", referencedColumnName="COD_EQUIPO")
-     */
-    private ?Equipos $equipo = null;
+    #[ORM\ManyToOne(inversedBy: 'lista_jugadores')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Equipos $EQUIPO = null;
 
     public function getId(): ?int
     {
@@ -85,14 +83,14 @@ class Jugadores
         return $this;
     }
 
-    public function getEquipo(): ?Equipos
+    public function getEQUIPO(): ?Equipos
     {
-        return $this->equipo;
+        return $this->EQUIPO;
     }
 
-    public function setEquipo(?Equipos $equipo): static
+    public function setEQUIPO(?Equipos $EQUIPO): static
     {
-        $this->equipo = $equipo;
+        $this->EQUIPO = $EQUIPO;
 
         return $this;
     }
