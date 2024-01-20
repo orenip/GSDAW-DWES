@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Equipos{% endblock %}
+
+{% block body %}
+    <h1>Crear Equipos</h1>
+
+    {{ include('equipos/_form.html.twig') }}
+
+    <a class="btn btn-secondary" href="{{ path('app_equipos_index') }}">Volver</a>
+{% endblock %}

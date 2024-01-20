@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Partidos index{% endblock %}
+
+{% block body %}
+    <h1>Partidos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FECHA</th>
+                <th>PUNTOS_EQUIPO1</th>
+                <th>NOMBRE_EQUIPO1</th>
+                <th>PUNTOS_EQUIPO2</th>
+                <th>NOMBRE_EQUIPO2</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for partido in partidos %}
+            <tr>
+                <td>{{ partido.id }}</td>
+                <td>{{ partido.FECHA ? partido.FECHA|date('Y-m-d') : '' }}</td>
+                <td>{{ partido.PUNTOSEQUIPO1 }}</td>
+                <td>{{ partido.CODEQUIPO1.getNOMBREEQUIPO }}</td>
+                <td>{{ partido.PUNTOSEQUIPO2 }}</td>
+                <td>{{ partido.CODEQUIPO2.getNOMBREEQUIPO}}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('app_partidos_show', {'id': partido.id}) }}">Ver</a>
+                    <a class="btn btn-warning" href="{{ path('app_partidos_edit', {'id': partido.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_partidos_new') }}">Crear Nuevo</a>
+{% endblock %}

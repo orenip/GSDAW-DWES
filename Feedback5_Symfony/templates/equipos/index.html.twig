@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Equipos{% endblock %}
+
+{% block body %}
+    <h1>Equipos</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NOMBRE_EQUIPO</th>
+                <th>PRESUPUESTO</th>
+                <th>FECHA_FUNDACION</th>
+                <th>TITULOS</th>
+                <th>ZONA</th>                
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipo in equipos %}
+            <tr>
+                <td>{{ equipo.id }}</td>
+                <td>{{ equipo.NOMBREEQUIPO }}</td>
+                <td>{{ equipo.PRESUPUESTO }}</td>
+                <td>{{ equipo.FECHAFUNDACION ? equipo.FECHAFUNDACION|date('Y-m-d') : '' }}</td>
+                <td>{{ equipo.TITULOS }}</td>
+                <td>{{ equipo.ZONA.getNOMBREZONA() }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('app_equipos_show', {'id': equipo.id}) }}">Ver</a>
+                    <a class="btn btn-warning" href="{{ path('app_equipos_edit', {'id': equipo.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_equipos_new') }}">Crear nuevo</a>
+{% endblock %}

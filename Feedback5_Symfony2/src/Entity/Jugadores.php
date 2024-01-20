@@ -11,8 +11,8 @@ class Jugadores
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column(name: "COD_JUGADOR")]
-    private ?int $id = null;
+    #[ORM\Column]
+    private ?int $COD_JUGADOR = null;
 
     #[ORM\Column(name: "NOMBRE_JUGADOR", length: 40)]
     private ?string $NOMBRE_JUGADOR = null;
@@ -34,7 +34,7 @@ class Jugadores
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->COD_JUGADOR;
     }
 
     public function getNOMBREJUGADOR(): ?string

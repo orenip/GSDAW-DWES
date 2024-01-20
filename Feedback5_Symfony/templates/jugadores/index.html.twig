@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jugadores index{% endblock %}
+
+{% block body %}
+    <h1>Jugadores</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NOMBRE_JUGADOR</th>
+                <th>FECHA_NACIMIENTO</th>
+                <th>ESTATURA</th>
+                <th>POSICION</th>
+                <th>EQUIPO</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jugadore in jugadores %}
+            <tr>
+                <td>{{ jugadore.id }}</td>
+                <td>{{ jugadore.NOMBREJUGADOR }}</td>
+                <td>{{ jugadore.FECHANACIMIENTO ? jugadore.FECHANACIMIENTO|date('Y-m-d') : '' }}</td>
+                <td>{{ jugadore.ESTATURA }}</td>
+                <td>{{ jugadore.POSICION }}</td>
+                <td>{{ jugadore.EQUIPO.getNOMBREEQUIPO }}</td>
+                <td>
+                    <a class="btn btn-info" href="{{ path('app_jugadores_show', {'id': jugadore.id}) }}">Ver</a>
+                    <a class="btn btn-warning" href="{{ path('app_jugadores_edit', {'id': jugadore.id}) }}">Editar</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_jugadores_new') }}">Crear Nuevo</a>
+{% endblock %}

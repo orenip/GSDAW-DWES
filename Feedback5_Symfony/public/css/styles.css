@@ -1,0 +1,44 @@
+/* Estilo para el formulario */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* Estilo para los campos del formulario */
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Estilo para los botones del formulario */
+form button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para los botones de enlaces */
+a.button {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a.button:hover {
+    background-color: #0056b3;
+}
