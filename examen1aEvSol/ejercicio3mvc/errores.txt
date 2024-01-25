@@ -1,0 +1,7 @@
+=====================
+ERRORES PARA CORREGIR
+=====================
+- FrontControler.php → el controllerName por defecto mal, sobra ‘s’ ya que es “ProductoController”.
+- ProductoController.php → mando a la vista ‘lista_productos’ y luego en la vista uso ‘$productos’ por lo que no funciona.
+- ProductoNuevoView.php → en el formulario, el input del nombre lo llamo “nombre_producto” pero en el controlador lo recojo como “nombre”.
+- ProductoModel.php → en el método “delete()” la tabla es “producto” y tiene que ser “productos”.
