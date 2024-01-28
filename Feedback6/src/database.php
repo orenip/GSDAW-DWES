@@ -13,7 +13,7 @@ class Database
 	private $results_page = 50;
 
 	public function __construct(){
-		$this->connection = new mysqli('localhost', 'root', '', 'apirestdwes', '3306');
+		$this->connection = new mysqli('localhost', 'super', '123456', 'almacen', '3306');
 //Se crea una conexión a la base de datos
 		if($this->connection->connect_errno){
 			echo 'Error de conexión a la base de datos';
@@ -87,7 +87,7 @@ class Database
 	 * Método para actualizar un registro de la BD
 	 * Hay que indicar el registro mediante un campo que sea clave primaria y que debe llamarse "id"
 	 */
-	public function updateDB($table, $id, $data)//El parámetro $data es un array que contiene los campos y valores que se quieren actualizar
+	public function updateDB($table, $id, $data, $id_column = 'id')//El parámetro $data es un array que contiene los campos y valores que se quieren actualizar
 	{	
 		$query = "UPDATE $table SET ";//Crea la consulta
 		foreach ($data as $key => $value) {//Recorre el array $data y va añadiendo a la consulta los campos y valores que se le han pasado
@@ -97,7 +97,7 @@ class Database
 			}
 		}
 
-		$query .= ' WHERE id = '.$id;//Añade el id del registro que se quiere actualizar a la consulta
+		$query .= " WHERE $id_column = $id";//Añade el id del registro que se quiere actualizar a la consulta
 
 		$this->connection->query($query);//Ejecuta la consulta
 
@@ -112,9 +112,9 @@ class Database
 	 * Método para eliminar un registro de la BD
 	 * Hay que indicar el registro mediante un campo que sea clave primaria y que debe llamarse "id"
 	 */
-	public function deleteDB($table, $id)//El parámetro $id es el id del registro que se quiere eliminar
+	public function deleteDB($table, $id, $id_column = 'id')//El parámetro $id es el id del registro que se quiere eliminar
 	{
-		$query = "DELETE FROM $table WHERE id = $id";//Crea la consulta
+		$query = "DELETE FROM $table WHERE $id_column = $id";//Crea la consulta
 		$this->connection->query($query);//Ejecuta la consulta
 
 		if(!$this->connection->affected_rows){//Si no se ha eliminado ningún registro, devuelve 0

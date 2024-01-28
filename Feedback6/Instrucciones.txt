@@ -3,7 +3,7 @@
 3º Se basan en otras clases dentros de src (clases padres) pero dentro de classes se deben crear 
 clases por cada tabla "modelo"
 4º modelo hereda de database con atributo conexion. 
-5º Los metodos son generigos y se usan para filtrar, con el extra (estos metodos no se modifican) 
+5º Los metodos son genericos y se usan para filtrar, con el extra (estos metodos no se modifican) 
 pero si se llaman desde nuestro modelo.
 6º En el classes, se indica la tabla y un par de atributos permitidas para insertar  y get, son como 
 los atriburos de la tabla por los que puedo filtrar, que se usa en el metodo allowCondition,
@@ -11,3 +11,5 @@ indicando los atributos minimos que debe tener en las Key
 7º Dentro de player.php se require_one el fichero de modelo , pero se inicializa como Player, ya 
 que internamente la clase se llama player
 8º Tanto en update como en delete lo hace por id y hay que modificar para que funcione
+9º Con Thunder o Pstman ponemos un POST-PUT-ETC con la ruta localhost/nombrecarpeta/archivo.php y comprobamos
+

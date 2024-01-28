@@ -5,19 +5,19 @@
 require_once 'src/response.php';
 require_once 'src/database.php';
 
-class Player extends Database
+class Categoria extends Database
 {
 	/**
 	 * Atributo que indica la tabla asociada a la clase del modelo
 	 */
-	private $table = 'player';
+	private $table = 'categoria';
 
 	/**
 	 * Array con los campos de la tabla que se pueden usar como filtro en la URL para recuperar registros
 	 */
 	private $allowedConditions_get = array(
-		'id',
-		'player_name',
+		'cat_id',
+		'cat_nombre',
 		'page'
 	);
 
@@ -25,12 +25,7 @@ class Player extends Database
 	 * Array con los campos de la tabla que se pueden proporcionar en la URL para insertar registros
 	 */
 	private $allowedConditions_insert = array(
-		'player_name',
-		'player_mins',
-		'player_pts',
-		'player_asist',
-		'player_reb',
-		'player_tap'
+		'cat_nombre'
 	);
 
 	/**
@@ -39,10 +34,10 @@ class Player extends Database
 	private function validate($data)
 	{
 
-		if (!isset($data['player_name']) || empty($data['player_name'])) {//Comprueba si se ha recibido el campo player_name y si no está vacío
+		if (!isset($data['cat_nombre']) || empty($data['cat_nombre'])) {//Comprueba si se ha recibido el campo player_name y si no está vacío
 			$response = array(
 				'result' => 'error',
-				'details' => 'El campo player_name es obligatorio'
+				'details' => 'El campo cat_nombre  es obligatorio'
 			);//Si no se ha recibido el campo player_name o está vacío, se crea un array con el resultado de la petición
 
 			Response::result(400, $response);//Se llama al método result de la clase Response, pasándole como parámetros el código de respuesta y el array con el resultado de la petición
@@ -70,9 +65,9 @@ class Player extends Database
 			}
 		}
 
-		$players = parent::getDB($this->table, $params);//Si todo va bien, llama al método getDB de la clase Database, pasándole como parámetros la tabla y los parámetros que se le han pasado a la función get
+		$categorias = parent::getDB($this->table, $params);//Si todo va bien, llama al método getDB de la clase Database, pasándole como parámetros la tabla y los parámetros que se le han pasado a la función get
 
-		return $players;//Devuelve el array con los resultados
+		return $categorias;//Devuelve el array con los resultados
 	}
 
 	/**
@@ -119,7 +114,7 @@ class Player extends Database
 		}
 
 		if ($this->validate($params)) {//Si todo va bien, llama al método validate, pasándole como parámetro el array $params
-			$affected_rows = parent::updateDB($this->table, $id, $params);//Si todo va bien, llama al método updateDB de la clase Database (parent de player, que player extends Database),
+			$affected_rows = parent::updateDB($this->table, $id, $params, 'cat_id');//Si todo va bien, llama al método updateDB de la clase Database (parent de player, que player extends Database),
 
 			if ($affected_rows == 0) {//Si no se ha actualizado ningún registro, devuelve un error
 				$response = array(
@@ -138,7 +133,7 @@ class Player extends Database
 	 */
 	public function delete($id)//Recibe como parámetro el id del registro que se quiere eliminar
 	{
-		$affected_rows = parent::deleteDB($this->table, $id);//Llama al método deleteDB de la clase Database (parent de player, que player extends Database), pasándole como parámetros la tabla y el id del registro que se quiere eliminar
+		$affected_rows = parent::deleteDB($this->table, $id, 'cat_id');//Llama al método deleteDB de la clase Database (parent de player, que player extends Database), pasándole como parámetros la tabla y el id del registro que se quiere eliminar
 
 		if ($affected_rows == 0) {//Si no se ha eliminado ningún registro, devuelve un error
 			$response = array(
@@ -150,6 +145,29 @@ class Player extends Database
 			exit;
 		}
 	}
+	 /**
+     * Método para verificar si hay artículos asociados a la categoría.
+     */
+    public function hasAssociatedArticles($cat_id)
+    {
+        $db = new Database(); // Asegúrate de tener una instancia de la clase Database o usar tu implementación actual
+
+        // Consulta para verificar la existencia de artículos asociados a la categoría
+        $query = "SELECT COUNT(*) as count FROM articulo WHERE art_categoria = ?";
+        $params = array($cat_id);
+
+        $result = $db->getDB($query, $params);
+
+        if ($result && isset($result[0]['count']) && $result[0]['count'] > 0) {
+            // Hay artículos asociados
+            return true;
+        } else {
+            // No hay artículos asociados
+            return false;
+        }
+    }
+
+
 }
 
 ?>

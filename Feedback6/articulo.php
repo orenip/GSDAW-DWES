@@ -1,12 +1,11 @@
 <?php
 /**
- *	Script que se usa en los endpoints para trabajar con registros de la tabla PLAYER
- *	La clase "player.class.php" es la clase del modelo, que representa a un jugador de la tabla
+ *	Script que se usa en los endpoints para trabajar con registros de la tabla articulos
 */
 require_once 'src/response.php';
-require_once 'src/classes/player.class.php';
+require_once 'src/classes/articulo.class.php'; //CAMBIAR POR EL NOMBRE DE LA CLASE DEL MODELO
 
-$player = new Player();
+$articulo = new Articulo();
 
 /**
  * Se mira el tipo de petición que ha llegado a la API y dependiendo de ello se realiza una u otra accción
@@ -18,11 +17,11 @@ switch ($_SERVER['REQUEST_METHOD']) {//Se mira el tipo de petición que ha llega
 	case 'GET':
 		$params = $_GET;//Asigna el array superglobal $_GET a la variable $params
 
-		$players = $player->get($params); //Esta línea de código en PHP está llamando al método get en el objeto $player y pasando el array $params como argumento. El resultado de esta llamada al método se almacena en la variable $players.
+		$articulos = $articulo->get($params); //Esta línea de código en PHP está llamando al método get en el objeto $articulo y pasando el array $params como argumento. El resultado de esta llamada al método se almacena en la variable $players.
 
 		$response = array(
 			'result' => 'ok',
-			'players' => $players
+			'articulos' => $articulos
 		);//Se crea un array con el resultado de la petición
 
 		Response::result(200, $response);//Se llama al método result de la clase Response, pasándole como parámetros el código de respuesta y el array con el resultado de la petición
@@ -53,7 +52,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 			exit;
 		}
 
-		$insert_id = $player->insert($params);//Se llama al método insert() del modelo, pasándole como parámetro el array $params
+		$insert_id = $articulo->insert($params);//Se llama al método insert() del modelo, pasándole como parámetro el array $params
 
 		$response = array(
 			'result' => 'ok',
@@ -80,7 +79,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 			exit;
 		}
 
-		$player->update($_GET['id'], $params);//Se llama al método update() del modelo, pasándole como parámetros el id del jugador y el array $params
+		$articulo->update($_GET['id'], $params);//Se llama al método update() del modelo, pasándole como parámetros el id del jugador y el array $params
 
 		$response = array(
 			'result' => 'ok'
@@ -103,7 +102,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 			exit;
 		}
 
-		$player->delete($_GET['id']);//Se llama al método delete() del modelo, pasándole como parámetro el id del jugador
+		$articulo->delete($_GET['id']);//Se llama al método delete() del modelo, pasándole como parámetro el id del jugador
 
 		$response = array(
 			'result' => 'ok'
