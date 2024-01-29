@@ -133,41 +133,34 @@ class Categoria extends Database
 	 */
 	public function delete($id)//Recibe como parámetro el id del registro que se quiere eliminar
 	{
-		$affected_rows = parent::deleteDB($this->table, $id, 'cat_id');//Llama al método deleteDB de la clase Database (parent de player, que player extends Database), pasándole como parámetros la tabla y el id del registro que se quiere eliminar
+		try {
+			$affected_rows = parent::deleteDB($this->table, $id, 'cat_id');//Llama al método deleteDB de la clase Database, pasándole como parámetros la tabla y el id del registro que se quiere eliminar
 
-		if ($affected_rows == 0) {//Si no se ha eliminado ningún registro, devuelve un error
+			if ($affected_rows == 0) {//Si no se ha eliminado ningún registro, devuelve un error
+				$response = array(
+					'result' => 'error',
+					'details' => 'No hubo cambios'
+				);
+
+				Response::result(200, $response);//Genera una respuesta con el código de error 200 y el array $response
+				exit;
+			}
+			
+			$response = array(
+				'result' => 'ok'
+			);
+			Response::result(200, $response);//Genera una respuesta con el código de éxito 200 y el array $response
+
+		} catch (mysqli_sql_exception $exception) {
+			// Manejar la excepción de restricción de clave externa
 			$response = array(
 				'result' => 'error',
-				'details' => 'No hubo cambios'
+				'details' => 'No se puede eliminar la categoría porque tiene artículos asociados.'
 			);
-
-			Response::result(200, $response);//Genera una respuesta con el código de error 200 y el array $response
-			exit;
+			Response::result(400, $response);//Genera una respuesta con el código de error 400 y el array $response
 		}
 	}
-	 /**
-     * Método para verificar si hay artículos asociados a la categoría.
-     */
-    public function hasAssociatedArticles($cat_id)
-    {
-        $db = new Database(); // Asegúrate de tener una instancia de la clase Database o usar tu implementación actual
-
-        // Consulta para verificar la existencia de artículos asociados a la categoría
-        $query = "SELECT COUNT(*) as count FROM articulo WHERE art_categoria = ?";
-        $params = array($cat_id);
-
-        $result = $db->getDB($query, $params);
-
-        if ($result && isset($result[0]['count']) && $result[0]['count'] > 0) {
-            // Hay artículos asociados
-            return true;
-        } else {
-            // No hay artículos asociados
-            return false;
-        }
-    }
-
-
+	
 }
 
 ?>

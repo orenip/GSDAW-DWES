@@ -57,7 +57,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 
 		$response = array(
 			'result' => 'ok',
-			'insert_id' => $insert_id
+			'id' => $insert_id
 		);//Se crea un array con el resultado de la petición
 
 		Response::result(201, $response);//Se llama al método result de la clase Response, pasándole como parámetros el código de respuesta y el array con el resultado de la petición
@@ -102,16 +102,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 			Response::result(400, $response);
 			exit;
 		}
-		// Verificar si hay artículos asociados a la categoría
-		if ($categoria->hasAssociatedArticles($cat_id)) {
-			$response = array(
-				'result' => 'error',
-				'details' => 'No se puede borrar la categoría, hay artículos asociados'
-			);
-	
-			Response::result(400, $response);
-			exit;
-		}
+
 
 		$categoria->delete($_GET['cat_id']);//Se llama al método delete() del modelo, pasándole como parámetro el id del jugador
 

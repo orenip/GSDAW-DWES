@@ -56,7 +56,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 
 		$response = array(
 			'result' => 'ok',
-			'insert_id' => $insert_id
+			'id' => $insert_id
 		);//Se crea un array con el resultado de la petición
 
 		Response::result(201, $response);//Se llama al método result de la clase Response, pasándole como parámetros el código de respuesta y el array con el resultado de la petición
@@ -69,7 +69,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 	case 'PUT':
 		$params = json_decode(file_get_contents('php://input'), true);//Se recogen los parámetros que se han enviado en la petición PUT
 
-		if(!isset($params) || !isset($_GET['id']) || empty($_GET['id'])){//Comprobamos que exista el array $params y el parámetro id, si no existe alguno de los dos, se crea un array con un mensaje de error
+		if(!isset($params) || !isset($_GET['art_id']) || empty($_GET['art_id'])){//Comprobamos que exista el array $params y el parámetro id, si no existe alguno de los dos, se crea un array con un mensaje de error
 			$response = array(
 				'result' => 'error',
 				'details' => 'Error en la solicitud'
@@ -79,7 +79,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 			exit;
 		}
 
-		$articulo->update($_GET['id'], $params);//Se llama al método update() del modelo, pasándole como parámetros el id del jugador y el array $params
+		$articulo->update($_GET['art_id'], $params);//Se llama al método update() del modelo, pasándole como parámetros el id del jugador y el array $params
 
 		$response = array(
 			'result' => 'ok'
@@ -92,7 +92,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 	 * Cuando se solicita un DELETE se comprueba que se envíe un id de jugador. En caso afirmativo se utiliza el método delete() del modelo.
 	 */
 	case 'DELETE':
-		if(!isset($_GET['id']) || empty($_GET['id'])){//Comprobamos que exista el parámetro id, si no existe, se crea un array con un mensaje de error
+		if(!isset($_GET['art_id']) || empty($_GET['art_id'])){//Comprobamos que exista el parámetro id, si no existe, se crea un array con un mensaje de error
 			$response = array(
 				'result' => 'error',
 				'details' => 'Error en la solicitud'
@@ -102,7 +102,7 @@ y convertirlos en un array de PHP que se puede manipular más fácilmente en el 
 			exit;
 		}
 
-		$articulo->delete($_GET['id']);//Se llama al método delete() del modelo, pasándole como parámetro el id del jugador
+		$articulo->delete($_GET['art_id']);//Se llama al método delete() del modelo, pasándole como parámetro el id del jugador
 
 		$response = array(
 			'result' => 'ok'

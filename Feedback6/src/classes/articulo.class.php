@@ -118,7 +118,7 @@ class Articulo extends Database
 		}
 
 		if ($this->validate($params)) {//Si todo va bien, llama al método validate, pasándole como parámetro el array $params
-			$affected_rows = parent::updateDB($this->table, $id, $params);//Si todo va bien, llama al método updateDB de la clase Database (parent de player, que player extends Database),
+			$affected_rows = parent::updateDB($this->table, $id, $params, 'art_id');//Si todo va bien, llama al método updateDB de la clase Database (parent de player, que player extends Database),
 
 			if ($affected_rows == 0) {//Si no se ha actualizado ningún registro, devuelve un error
 				$response = array(
@@ -137,7 +137,7 @@ class Articulo extends Database
 	 */
 	public function delete($id)//Recibe como parámetro el id del registro que se quiere eliminar
 	{
-		$affected_rows = parent::deleteDB($this->table, $id);//Llama al método deleteDB de la clase Database (parent de player, que player extends Database), pasándole como parámetros la tabla y el id del registro que se quiere eliminar
+		$affected_rows = parent::deleteDB($this->table, $id, 'art_id');//Llama al método deleteDB de la clase Database (parent de player, que player extends Database), pasándole como parámetros la tabla y el id del registro que se quiere eliminar
 
 		if ($affected_rows == 0) {//Si no se ha eliminado ningún registro, devuelve un error
 			$response = array(

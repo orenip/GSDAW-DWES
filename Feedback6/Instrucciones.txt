@@ -11,5 +11,7 @@ indicando los atributos minimos que debe tener en las Key
 7º Dentro de player.php se require_one el fichero de modelo , pero se inicializa como Player, ya 
 que internamente la clase se llama player
 8º Tanto en update como en delete lo hace por id y hay que modificar para que funcione
-9º Con Thunder o Pstman ponemos un POST-PUT-ETC con la ruta localhost/nombrecarpeta/archivo.php y comprobamos
+9º Con Thunder o Pstman ponemos un POST-PUT-ETC con la ruta localhost/nombrecarpeta/archivo.php y comprobamos Ej: 
+http://localhost/GSDAW-DWES/Feedback6/articulo.php
+http://localhost/GSDAW-DWES/Feedback6/categoria.php
 
