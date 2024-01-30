@@ -16,7 +16,19 @@ switch ($_SERVER['REQUEST_METHOD']) {//Se mira el tipo de petición que ha llega
 	 */
 	case 'GET':
 		$params = $_GET;//Asigna el array superglobal $_GET a la variable $params
+		// Verificar si se proporciona un parámetro de categoría
+		if (isset($params['categoria_id']) && !empty($params['categoria_id'])) {
+            $categoria_id = $params['categoria_id'];
+			// Llamar al método getByCategoria para obtener los artículos de la categoría
+            $articulos = $articulo->getByCategoria($categoria_id);
 
+            $response = array(
+                'result' => 'ok',
+                'articulos' => $articulos
+            );
+			// Enviar la respuesta
+            Response::result(200, $response);
+        } else {
 		$articulos = $articulo->get($params); //Esta línea de código en PHP está llamando al método get en el objeto $articulo y pasando el array $params como argumento. El resultado de esta llamada al método se almacena en la variable $players.
 
 		$response = array(
@@ -25,6 +37,7 @@ switch ($_SERVER['REQUEST_METHOD']) {//Se mira el tipo de petición que ha llega
 		);//Se crea un array con el resultado de la petición
 
 		Response::result(200, $response);//Se llama al método result de la clase Response, pasándole como parámetros el código de respuesta y el array con el resultado de la petición
+		}
 		break;//Se sale del switch
 		
 	/**

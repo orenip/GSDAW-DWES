@@ -1,0 +1,14 @@
+1. Ir a la carpeta xammp-> mysql
+2. Renombrar la carpeta data a data_old
+3. Crear una carpeta que se llame data
+4. Copiar lo de la carpeta backup a data todo!
+5. De la carpeta data_old copiar el archivo ibdata1 y las carpetas menos mysql/phpmyadmin y performance_schema a data
+6.Reiniciar apache y debe funcionar.
+
+
+Otra manera: matar proceso.
+1. Apache hacer clic en Netstat
+2. Ver procesos activos, en caso my sql 3306
+3. Apuntar el PID
+4. Ejecutar desde powershell taskkill /F /PID nro_pid
+5. Volver arrancar.

@@ -149,6 +149,26 @@ class Articulo extends Database
 			exit;
 		}
 	}
+
+	public function getByCategoria($categoria)
+    {
+        // Validar que la categoría esté presente
+        if (empty($categoria)) {
+            $response = array(
+                'result' => 'error',
+                'details' => 'El parámetro de categoría es obligatorio'
+            );
+
+            Response::result(400, $response);
+            exit;
+        }
+
+        // Realizar la consulta para obtener los artículos de la categoría
+        $params = array('art_categoria' => $categoria);
+        $articulos = parent::getDB($this->table, $params);
+
+        return $articulos;
+    }
 }
 
 ?>

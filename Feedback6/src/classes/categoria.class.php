@@ -161,6 +161,8 @@ class Categoria extends Database
 		}
 	}
 	
+
+	
 }
 
 ?>
