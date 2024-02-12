@@ -10,5 +10,5 @@ Otra manera: matar proceso.
 1. Apache hacer clic en Netstat
 2. Ver procesos activos, en caso my sql 3306
 3. Apuntar el PID
-4. Ejecutar desde powershell taskkill /F /PID nro_pid
+4. Ejecutar desde powershell como administrador: taskkill /F /PID nro_pid
 5. Volver arrancar.
