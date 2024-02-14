@@ -9,7 +9,7 @@ $parametros = array(
     $params_json = json_encode($parametros);
     
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, "http://localhost/DWes/examen/ejercicio2/auth.php");
+    curl_setopt($ch, CURLOPT_URL, "http://localhost/GSDAW-DWES/API_OTRAS/examen/ejercicio2/auth.php");
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -34,7 +34,7 @@ $parametros = array(
 
     //empresa
        $curl = curl_init();
-        curl_setopt($curl,CURLOPT_URL,"http://localhost/DWes/examen/ejercicio2/empresa.php");
+        curl_setopt($curl,CURLOPT_URL,"http://localhost/GSDAW-DWES/API_OTRAS/examen/ejercicio2/empresa.php");
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
@@ -84,7 +84,7 @@ $parametros = array(
         $opcionSeleccionada = $_POST["select"];
         
         $curl = curl_init();
-        curl_setopt($curl,CURLOPT_URL,"http://localhost/DWes/examen/ejercicio2/apto.php?emp_id=".$opcionSeleccionada);
+        curl_setopt($curl,CURLOPT_URL,"http://localhost/GSDAW-DWES/API_OTRAS/examen/ejercicio2/apto.php?emp_id=".$opcionSeleccionada);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
