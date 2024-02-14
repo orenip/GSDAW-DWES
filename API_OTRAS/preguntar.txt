@@ -1,7 +1,0 @@
-Preguntar por el PATCH/PUT
-
-si hay que poner en la ruta el id
-
-
------------------------------------
-hacerlo con postman el pdf
