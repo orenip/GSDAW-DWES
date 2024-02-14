@@ -1,0 +1,81 @@
+MANUAL SYMFONY
+1.	Me ha sido necesario reinstalar XAMPP desde 0.
+2.	** Copiar el archivo php.ini de C:\xampp\php a C:\xampp\php\windowsXamppPhp
+3.	Instalamos Composer desde la web oficial: 
+•	https://getcomposer.org/download/ 
+4.	Cambiar la ruta a       C:\xampp\php\windowsXamppPhp
+5.	Comprobar que se ha instalado correctamente con composer -version en CMD
+6.	Instalar scoop con el comando:
+•	irm get.scoop.sh -outfile 'install.ps1'
+•	.\install.ps1 -RunAsAdmin [-OtherParameters ...]
+•	# I don't care about other parameters and want a one-line command
+•	iex "& {$(irm get.scoop.sh)} -RunAsAdmin"
+7.	Instalar symfony con comando:
+•	scoop install symfony-cli
+8.	Crear proyecto symfony
+•	symfony new PruebaSymfony --webapp
+9.	Indicar $env:Path = $env:Path + ";C:\xampp\php" 
+•	poner variable de entorno.
+10.	Cambiar .env por la cadena de la BD
+•	DATABASE_URL="mysql://root@127.0.0.1:3306/baloncesto2?serverVersion=10.4.28-MariaDB&charset=utf8mb4"
+•	*root(nombre usuario) :password si hubiese y despues de 3306/NombreBD
+11.	Comprobamos que funciona
+•	symfony server:start
+12.	Crear base de datos
+•	php bin/console doctrine:database:create
+13.	Crear Entidades
+•	php bin/console make:entity
+•	Se configura: poniendo el (nombreTabla, Campos (El Id no hace falta hacerlo), tipo, longitud y si es nulo o no
+•	Se pone ? para saber el resto de tipos.
+14.	Crear migraciones
+•	php bin/console make:migration
+15.	Exportar migraciones BD
+•	php bin/console doctrine:migration:migrate
+16.	Hacer Crud
+•	php bin/console make:crud
+•	**Si da fallo poner el comando: composer require annotation
+•	(Se pone el nombre de la tabla que se quiere hacer el Crud)
+•	El nombre del controlador y oie ultimo el el TEST (en este caso NO)
+17.	Arrancar servidor con comando: 
+•	symfony serve
+18.	Autentificacion:
+•	php bin/console make:user
+•	Hacer migración y exportar a BD
+•	php bin/console make:auth
+i.	Login form authenticator
+•	php bin/console make:registration-form
+19.	Añadir a base.html
+•	{% if app.user %}
+•	            <li>
+•	                <a href="{{ path('app_logout') }}">Logout <strong>{{app.user.username}}</strong></a>
+•	            </li>
+•	            {% else %}
+•	            <li>
+•	                <a href="{{ path('app_login') }}">Login</a>
+•	            </li>
+•	            <li>
+•	                <a href="{{ path('app_register') }}">Register</a>
+•	            </li>
+•	{% endif %}
+20.	Cambiar para reedirigir desde el Auth--Security hay una línea que marca excepción comentar y descomentar la que redirige. (se cambia)
+•	public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
+•	    {
+•	        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+•	            return new RedirectResponse($targetPath);
+•	        }
+•	        //CAMBIAMOS ESTA LINEA PARA QUE REEDIRECCIONE A LA PAGINA DE INICIO
+•	        //SE COGE EL NAME DE LA RUTA DEL CONTROLADOR
+•	        // For example:
+•	        return new RedirectResponse($this->urlGenerator->generate('app_partidos_index'));
+•	        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+•	    }
+21.	En RegistrationController añadimos debajo de Route/register cuando sale del if 
+i.	$user->setRoles([‘ROLE_USER’])
+22.	En packages – security.yalm  hay que poner  , las rutas y descomentarla para que no deje acceder si no estas loggeado.
+•	access_control:
+•	        	# - { path: ^/admin, roles: ROLE_ADMIN }
+•	         - { path: ^/partidos, roles: ROLE_USER }
+•	         - { path: ^/zonas, roles: ROLE_USER }
+•	         - { path: ^/equipos, roles: ROLE_USER }
+•	         - { path: ^/jugadores, roles: ROLE_USER}
+23.	FIN
