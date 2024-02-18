@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Categories</title>
+</head>
+<body>
+<?php
+function get_categories() {
+    $url = "https://www.themealdb.com/api/json/v1/1/categories.php";
+    $json = file_get_contents($url);
+    $data = json_decode($json, true);
+    return $data['categories'];
+}
+
+function get_meals_by_category($category) {
+    $url = "https://www.themealdb.com/api/json/v1/1/filter.php?c=" . urlencode($category);
+    $json = file_get_contents($url);
+    $data = json_decode($json, true);
+    return $data['meals'];
+}
+
+function get_meal_details($meal_id) {
+    $url = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" . urlencode($meal_id);
+    $json = file_get_contents($url);
+    $data = json_decode($json, true);
+    return $data['meals'][0];
+}
+
+if (!isset($_GET['category'])) {
+    // Mostrar categorías
+    echo "<h1>Select a Category</h1>";
+    $categories = get_categories();
+    echo "<ul>";
+    foreach ($categories as $category) {
+        echo "<li><a href='?category=" . urlencode($category['strCategory']) . "'>" . $category['strCategory'] . "</a></li>";
+    }
+    echo "</ul>";
+} elseif (!isset($_GET['meal'])) {
+    // Mostrar comidas de la categoría seleccionada
+    $category = $_GET['category'];
+    echo "<h1>Meals in $category</h1>";
+    echo "<a href=''>Select Another Category</a><br><br>";
+    echo "<img src='" . get_meals_by_category($category)[0]['strCategoryThumb'] . "' width='200'><br><br>";
+    $meals = get_meals_by_category($category);
+    echo "<ul>";
+    foreach ($meals as $meal) {
+        echo "<li><a href='?category=" . urlencode($category) . "&meal=" . urlencode($meal['idMeal']) . "'>" . $meal['strMeal'] . "</a></li>";
+    }
+    echo "</ul>";
+} else {
+    // Mostrar detalles de la comida seleccionada
+    $meal_id = $_GET['meal'];
+    $meal = get_meal_details($meal_id);
+    echo "<h1>{$meal['strMeal']}</h1>";
+    echo "<a href='?category={$_GET['category']}'>Back to Meals</a><br><br>";
+    echo "<img src='{$meal['strMealThumb']}' width='200'><br><br>";
+    echo "<p>{$meal['strInstructions']}</p>";
+}
+?>
+</body>
+</html>

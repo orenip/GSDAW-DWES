@@ -1,0 +1,52 @@
+Tras salirme numerosos errores en simfony
+como:   unable to run C:\ProgramData\ComposerSetup\bin\composer.phar require webapp --no-interaction
+realizacion como serian las instrucciones para la realización del ejercicio.
+ 
+1. Crear proyecto symfony
+symfony new EjercicioExamen --webapp
+
+2.Cambiar .env por la cadena de la BD
+DATABASE_URL="mysql://root@127.0.0.1:3306/ej1inmobiliaria?serverVersion=10.4.28-MariaDB&charset=utf8mb4"
+*root(nombre usuario) :password si hubiese y despues de 3306/NombreBD
+Comprobamos que funciona
+symfony server:start
+
+3.Crear base de datos
+php bin/console doctrine:database:create
+
+4.Crear Entidades
+php bin/console make:entity
+Se configura: poniendo el (nombreTabla, Campos (El Id no hace falta hacerlo), tipo, longitud y si es nulo o no
+Se pone ? para saber el resto de tipos como indicar la relacion entre ONEtoMany entre promocion e inmueble..
+
+5.Crear migraciones
+php bin/console make:migration
+
+6.Exportar migraciones BD
+php bin/console doctrine:migration:migrate
+
+7.Hacer Crud
+php bin/console make:crud
+
+8.Arrancar servidor con comando: 
+symfony serve
+
+9. Para mostrar el listado de los formularios deberiamos ir a la vista twig
+y en la vista que queramos dentro del formulario cambiar el id por el nombre de la tabla por ejemplo:
+<td>{{ equipo.INMUEBLES.getNOMBREINMUEBLE() }}</td>
+
+10. Para hacer un desplegable: deberiamos desde el controlador desde la vista llamar a la funcion que nos devuelve todos los jugadores 
+EJEMPLO
+    #[Route('/', name: 'app_jugadores_index', methods: ['GET'])]
+    public function index(JugadoresRepository $jugadoresRepository): Response
+    {
+        return $this->render('jugadores/index.html.twig', [
+            'jugadores' => $jugadoresRepository->findAll(),
+        ]);
+    }
+
+DEsde el formulario de editar o el que sea necesario.
+
+ <a class="btn btn-secondary" href="{{ path('app_jugadores_index') }}">Volver</a>
+
+Para hacer que cuando s eponga la url se vaya directo al listado de promociones, debemos poner en las routas  y cambiando por el archivo routes.yalm por el nombre del controlador
